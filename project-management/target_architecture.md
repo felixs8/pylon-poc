@@ -16,10 +16,10 @@
 
 ### 3D Graphics & Visualization
 
-- **3D Engine**: Three.js for WebGL-based 3D rendering and scene management
-- **3D Utilities**: drei (Three.js React utilities) for camera controls and helpers
-- **3D Integration**: @react-three/fiber for React integration with Three.js
-- **Performance**: @react-three/offscreen for Web Worker optimization (if needed)
+- **3D Engine**: Three.js (^0.170.0) for WebGL-based 3D rendering and scene management
+- **3D Integration**: @react-three/fiber (^8.15.0) for React integration with Three.js
+- **3D Utilities**: @react-three/drei (^9.92.0) for camera controls and helpers
+- **Performance**: @react-three/offscreen for Web Worker optimization (if needed for future tasks)
 
 ### Local File Handling & Interaction
 
