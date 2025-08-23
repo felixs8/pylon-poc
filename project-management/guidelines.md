@@ -231,7 +231,7 @@ Please:
 1. Implement the feature/changes from the task file
 2. Satisfy all acceptance criteria from the task file
 3. Ensure all Definition of Done requirements are met (all commands mentioned in the file had to be executed for the current version of the code)
-4. Update current_architecture.md with new features and file changes
+4. Update current_architecture.md with new features and file changes. Reference the task in the task history, but avoid references to the task in other parts of the document. The document should describe the current state regardless of the last task.
 5. Update the task file with implementation notes and file changes
 6. If you encounter an unexpected blocker you should stop the development and ask for help. Do not take shortcuts to finish the tasks (like not passing tests, ignoring warnings or errors or doing workarounds)
 ```

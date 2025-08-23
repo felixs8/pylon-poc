@@ -23,28 +23,27 @@
 
 ### Components
 
-- `/app/page.tsx` – Updated main page with 3D pylon configurator interface
+- `/app/page.tsx` – Main page with 3D pylon configurator interface  
 - `/app/components/PylonViewer.tsx` – 3D canvas container with Three.js scene setup
 - `/app/components/Pylon.tsx` – Static pylon geometry component (rectangular box)
 
 ### E2E Tests
 
-- `/cypress/e2e/helloWorld.cy.ts` – Updated basic homepage functionality test
 - `/cypress/e2e/pylonVisualization.cy.ts` – Comprehensive 3D visualization testing (AC1-AC5)
 
 ### Component Tests
 
-- `/cypress/component/Home.cy.tsx` – Updated Home component test
+- `/cypress/component/Home.cy.tsx` – Home component test
 - `/cypress/component/PylonViewer.cy.tsx` – 3D component rendering and WebGL context tests
 
 ### Configuration
 
-- `/package.json` – Added Three.js dependencies (three, @react-three/fiber, @react-three/drei, @types/three)
+- `/package.json` – Project dependencies including Three.js libraries (three, @react-three/fiber, @react-three/drei, @types/three)
 - `/cypress.config.ts` – Cypress testing configuration
 - `/next.config.ts` – Next.js configuration with TypeScript
 - `/tsconfig.json` – TypeScript compiler configuration
 - `/postcss.config.mjs` – PostCSS configuration for Tailwind CSS
-- `/eslint.config.mjs` – ESLint configuration for code quality
+- `/eslint.config.mjs` – ESLint configuration with Cypress-specific rules
 
 ## Package.json Scripts
 
@@ -80,10 +79,10 @@
 
 ## Testing Coverage
 
-### Automated Tests (8 total)
+### Automated Tests (7 total)
 
-- **Component Tests (3)**: Home component and PylonViewer component functionality
-- **E2E Tests (6)**: Canvas presence, WebGL context, performance, error-free rendering
+- **Component Tests (2)**: Home component and PylonViewer component functionality  
+- **E2E Tests (5)**: Canvas presence, WebGL context, performance, error-free rendering
 
 ### Manual Testing Requirements
 

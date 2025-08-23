@@ -13,12 +13,6 @@ describe("PylonViewer Component", () => {
     // Test that WebGL context is created (canvas should have WebGL content)
     cy.get("canvas").should("have.attr", "width");
     cy.get("canvas").should("have.attr", "height");
-  });
-
-  it("has reasonable canvas dimensions", () => {
-    cy.mount(<PylonViewer />);
-
-    // Test canvas has reasonable dimensions
     cy.get("canvas").invoke("height").should("be.greaterThan", 100);
     cy.get("canvas").invoke("width").should("be.greaterThan", 100);
   });

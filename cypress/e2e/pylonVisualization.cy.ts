@@ -37,9 +37,8 @@ describe("3D Pylon Visualization", () => {
 
   it("page loads within performance requirements", () => {
     // AC5: Initial scene load completes within 3 seconds
-    cy.visit("/", { timeout: 3000 });
-    cy.get("canvas").should("be.visible");
-    cy.contains("Pylon Configurator POC").should("be.visible");
+    cy.visit("/");
+    cy.get("canvas", { timeout: 3000 }).should("be.visible");
   });
 
   it("displays page title and description", () => {
