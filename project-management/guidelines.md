@@ -196,7 +196,7 @@ Focus on suggestions that build incrementally toward core user value.
 Example prompt 2 (task file creation, copy-paste):
 
 ```
-You are acting as a Product Owner. We've decided to implement [describe the chosen feature from backlog] as our next task.
+You are acting as a Product Owner. We've decided to implement ### as our next task.
 
 Task: Create the task file for the next sequential task number.
 
