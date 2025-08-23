@@ -1,9 +1,8 @@
-# [Project Name]
+# Pylon Configurator POC
 
 ## About This Project
 
-_Please describe here what this project is all about._  
-This section is meant for a short, human-readable description of the product. Summarize the problem it solves, who it is for, and what the main functionality is. Think of it as the first thing a visitor should read when opening the repository.
+This is a proof of concept for an interactive 3D advertising pylon configurator that enables B2B sales teams and customers to design custom advertising pylons in real-time. The application provides instant 3D visualization of pylon configurations with German-language interface and transparent pricing feedback.
 
 ## Getting Started
 
