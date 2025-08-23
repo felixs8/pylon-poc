@@ -6,8 +6,9 @@
 
 - **3D Canvas Setup**: React Three Fiber integrated with Next.js for WebGL-based 3D rendering
 - **Static Pylon Display**: Rectangular pylon geometry (3.0m x 1.0m x 0.5m) with basic material rendering
+- **Interactive Camera Controls**: Full OrbitControls integration with orbit, zoom, and pan functionality
 - **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception
-- **Fixed Camera Positioning**: Static camera view optimally positioned to showcase the pylon
+- **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
 - **3D Scene Foundation**: Ground plane and basic scene setup for future interactive features
 
 ## Current Techstack
@@ -23,7 +24,7 @@
 
 ### Components
 
-- `/app/page.tsx` – Main page with 3D pylon configurator interface  
+- `/app/page.tsx` – Main page with 3D pylon configurator interface
 - `/app/components/PylonViewer.tsx` – 3D canvas container with Three.js scene setup
 - `/app/components/Pylon.tsx` – Static pylon geometry component (rectangular box)
 
@@ -81,7 +82,7 @@
 
 ### Automated Tests (7 total)
 
-- **Component Tests (2)**: Home component and PylonViewer component functionality  
+- **Component Tests (2)**: Home component and PylonViewer component functionality
 - **E2E Tests (5)**: Canvas presence, WebGL context, performance, error-free rendering
 
 ### Manual Testing Requirements
@@ -89,13 +90,30 @@
 - Visual verification of pylon rendering across target browsers
 - Lighting quality assessment
 - Performance validation under different hardware conditions
+- **OrbitControls functionality**: Camera controls cannot be automatically tested with Cypress because WebGL canvas content is not accessible to DOM testing tools. Manual verification required for:
+  - Left-click orbit functionality around pylon
+  - Mouse wheel zoom with proper distance limits (2-20 units)
+  - Right-click pan behavior
+  - Smooth camera movements and performance
+  - Proper focus maintained on pylon center
+  - Angle and distance constraints working correctly
 
 ## Task History
 
 - **Task 1**: Basic 3D Canvas and Static Pylon Display (✅ Completed)
+
   - Implemented React Three Fiber integration
   - Created static rectangular pylon with proper dimensions
   - Added basic scene lighting (ambient + directional)
   - Set up fixed camera positioning
   - Comprehensive Cypress test coverage for all acceptance criteria
   - Performance optimization meeting < 3 second load time requirement
+
+- **Task 2**: Interactive Camera Controls (✅ Completed)
+  - Integrated @react-three/drei OrbitControls for camera interaction
+  - Implemented orbit functionality with left-click drag
+  - Added mouse wheel zoom with distance limits (2-20 units)
+  - Enabled right-click pan controls
+  - Configured smooth damped camera movements
+  - Set polar angle restrictions to prevent underground camera views
+  - Camera target focused on pylon center at [0, 1.4, 0]

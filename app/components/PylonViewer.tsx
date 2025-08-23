@@ -1,6 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
 import Pylon from "./Pylon";
 
 export default function PylonViewer() {
@@ -28,6 +29,28 @@ export default function PylonViewer() {
           shadow-camera-right={10}
           shadow-camera-top={10}
           shadow-camera-bottom={-10}
+        />
+
+        {/* Interactive Camera Controls */}
+        <OrbitControls
+          target={[0, 1.4, 0]} // Focus on pylon center (height/2 - 0.1 = 1.4)
+          minDistance={2} // Minimum zoom distance
+          maxDistance={20} // Maximum zoom distance
+          minPolarAngle={Math.PI / 6} // Prevent camera going below ground (30 degrees from top)
+          maxPolarAngle={Math.PI / 2} // Prevent camera flipping upside down (90 degrees from top)
+          enablePan={true} // Enable right-click pan
+          enableZoom={true} // Enable mouse wheel zoom
+          enableRotate={true} // Enable left-click orbit
+          enableDamping={true} // Smooth camera movement
+          dampingFactor={0.05} // Damping intensity for smooth motion
+          panSpeed={1} // Pan sensitivity
+          rotateSpeed={1} // Rotation sensitivity
+          zoomSpeed={1} // Zoom sensitivity
+          mouseButtons={{
+            LEFT: 0, // Left button for orbit
+            MIDDLE: 1, // Middle button for zoom (if available)
+            RIGHT: 2, // Right button for pan
+          }}
         />
 
         {/* Static Pylon */}
