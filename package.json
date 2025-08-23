@@ -13,12 +13,15 @@
     "cypress:component": "cypress run --component"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.3",
+    "@react-three/fiber": "^9.3.0",
     "cypress": "^15.0.0",
     "daisyui": "^5.0.50",
     "next": "15.5.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "start-server-and-test": "^2.0.13"
+    "start-server-and-test": "^2.0.13",
+    "three": "^0.179.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -26,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.179.0",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
     "tailwindcss": "^4",

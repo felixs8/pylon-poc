@@ -1,6 +1,6 @@
 describe("template spec", () => {
   it("passes", () => {
     cy.visit("/");
-    cy.contains("Hello World");
+    cy.contains("Pylon Configurator POC");
   });
 });

@@ -223,20 +223,32 @@ Here we actually implement the planned task. The AI agent takes the role of **Pr
 Example prompt (implementation, copy-paste):
 
 ```
-You are acting as a Programmer. I want you to implement taskX.md (replace X with the actual task number).
+You are acting as a Programmer. I want you to implement the requirements written in taskX.md
 
-Read the project files: guidelines.md, requirements.md, target_architecture.md, current_architecture.md and definition_of_done to understand the current project state.
-
-Task: Implement the planned task according to the Definition of Done.
+Read everything written in the the project files: guidelines.md, requirements.md, target_architecture.md, current_architecture.md and definition_of_done.md to understand the current project state.
 
 Please:
-1. Read the task file to understand all acceptance criteria
-2. Implement the feature/changes needed to satisfy all criteria
-3. Ensure the project builds without errors
-4. Create/update automated tests for criteria marked as testable
-5. Update current_architecture.md with new features and file changes
-6. Update the task file with implementation notes and file changes
-7. Ensure all Definition of Done requirements are met
+1. Implement the feature/changes from the task file
+2. Satisfy all acceptance criteria from the task file
+3. Ensure all Definition of Done requirements are met (all commands mentioned in the file had to be executed for the current version of the code)
+4. Update current_architecture.md with new features and file changes
+5. Update the task file with implementation notes and file changes
+6. If you encounter an unexpected blocker you should stop the development and ask for help. Do not take shortcuts to finish the tasks (like not passing tests, ignoring warnings or errors or doing workarounds)
+```
+
+Example prompt for review:
+
+```
+Here are some points that still need work:
+-
+-
+
+Please:
+1. Go through the list of open points and finish the work
+3. Ensure all Definition of Done requirements are met (all commands mentioned in the file had to be executed for the current version of the code)
+4. Update current_architecture.md if needed
+5. Update the task file with implementation notes if needed
+6. If you encounter an unexpected blocker you should stop the development and ask for help. Do not take shortcuts to finish the tasks (like not passing tests, ignoring warnings or errors or doing workarounds)
 ```
 
 ## Step 6: Retrospective
