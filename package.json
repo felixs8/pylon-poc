@@ -8,6 +8,7 @@
     "start": "next start",
     "test": "npm run cypress:component && start-server-and-test dev http://localhost:3000 cypress:run",
     "lint": "eslint",
+    "dod": "npm run build && npx tsc --noEmit && npm run lint && npm audit && npm run test",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress:component": "cypress run --component"
