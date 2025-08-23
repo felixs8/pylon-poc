@@ -2,14 +2,12 @@
 
 import { useRef } from "react";
 import { Mesh } from "three";
+import { usePylonConfiguration } from "../hooks/usePylonConfiguration";
 
 export default function Pylon() {
   const meshRef = useRef<Mesh>(null);
-
-  // Fixed dimensions as per AC3: 3.0m height, 1.0m width, 0.5m depth
-  const height = 3.0;
-  const width = 1.0;
-  const depth = 0.5;
+  const { configuration } = usePylonConfiguration();
+  const { height, width, depth } = configuration.dimensions;
 
   return (
     <mesh
@@ -18,7 +16,7 @@ export default function Pylon() {
       castShadow
       receiveShadow
     >
-      {/* Simple rectangular geometry */}
+      {/* Dynamic geometry based on configuration */}
       <boxGeometry args={[width, height, depth]} />
 
       {/* Basic material with light blue color */}

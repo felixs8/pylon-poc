@@ -3,31 +3,25 @@ describe("3D Pylon Visualization", () => {
     cy.visit("/");
   });
 
-  it("displays 3D canvas on main page", () => {
-    // AC1: 3D canvas is rendered on the main page
-    cy.get("canvas").should("exist");
+  it("displays 3D canvas and page content", () => {
+    // Check page content using data-testids
+    cy.get('[data-testid="page-title"]').should(
+      "have.text",
+      "Pylon Configurator POC"
+    );
+    cy.get('[data-testid="page-description"]').should(
+      "have.text",
+      "3D Visualization of Advertising Pylons"
+    );
 
-    // Test canvas is visible and has proper dimensions
-    cy.get("canvas").should("be.visible");
+    // Check 3D canvas is rendered and visible
+    cy.get("canvas").should("exist").and("be.visible");
     cy.get("canvas").invoke("height").should("be.greaterThan", 500);
     cy.get("canvas").invoke("width").should("be.greaterThan", 500);
   });
 
-  it("renders without JavaScript errors", () => {
-    // AC1: Scene renders without errors
-    cy.window().then(() => {
-      // Check that no unhandled JavaScript errors occurred
-      cy.on("window:error", (error) => {
-        throw new Error(`JavaScript error occurred: ${error.message}`);
-      });
-    });
-
-    // Page should load successfully
-    cy.contains("Pylon Configurator POC").should("be.visible");
-  });
-
   it("WebGL context is successfully created", () => {
-    // AC1: Test that WebGL context is successfully created
+    // Test that WebGL context is successfully created
     cy.get("canvas").then(($canvas) => {
       const canvas = $canvas[0] as HTMLCanvasElement;
       const gl = canvas.getContext("webgl") || canvas.getContext("webgl2");
@@ -36,13 +30,15 @@ describe("3D Pylon Visualization", () => {
   });
 
   it("page loads within performance requirements", () => {
-    // AC5: Initial scene load completes within 3 seconds
+    // Initial scene load completes within 3 seconds
     cy.visit("/");
     cy.get("canvas", { timeout: 3000 }).should("be.visible");
-  });
 
-  it("displays page title and description", () => {
-    cy.contains("Pylon Configurator POC").should("be.visible");
-    cy.contains("3D Visualization of Advertising Pylons").should("be.visible");
+    // Check that no unhandled JavaScript errors occurred
+    cy.window().then(() => {
+      cy.on("window:error", (error) => {
+        throw new Error(`JavaScript error occurred: ${error.message}`);
+      });
+    });
   });
 });
