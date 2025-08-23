@@ -1,15 +1,18 @@
 # Current Architecture
 
-3D pylon configurator POC with basic Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC with German localization and basic Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 
+- **German Localization**: Complete German language interface with localized text constants and German decimal formatting
 - **3D Canvas Setup**: React Three Fiber integrated with Next.js for WebGL-based 3D rendering
 - **Dynamic Pylon Configuration**: Real-time pylon dimension adjustment with React Context state management
 - **Interactive Camera Controls**: Full OrbitControls integration with orbit, zoom, and pan functionality
 - **Dimension Controls**: Sliders and numeric inputs for height (1.0-8.0m), width (0.3-3.0m), depth (0.1-1.0m)
+- **German Number Formatting**: Text inputs accept both comma and dot decimals, display shows German format with comma separators
+- **German Error Messages**: Validation messages in German with proper decimal notation
 - **Real-time 3D Updates**: Pylon geometry updates within 1 second of dimension changes
-- **Input Validation**: Range validation with user feedback for invalid values
+- **Input Validation**: Range validation with German localized user feedback for invalid values
 - **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
 - **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception
 - **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
@@ -29,11 +32,16 @@
 
 ### Components
 
-- `/app/page.tsx` – Main page with Context provider and pylon configurator interface
+- `/app/page.tsx` – Main page with German localized content and Context provider
 - `/app/components/PylonViewer.tsx` – 3D canvas container with integrated dimension controls
 - `/app/components/Pylon.tsx` – Dynamic pylon geometry component consuming Context state
-- `/app/components/DimensionControls.tsx` – UI controls container for pylon dimension configuration
-- `/app/components/DimensionControl.tsx` – Individual dimension control component with validation and error handling
+- `/app/components/DimensionControls.tsx` – UI controls container with German labels and formatting
+- `/app/components/DimensionControl.tsx` – Individual dimension control with German validation, text inputs, and error handling
+
+### Localization & Utilities
+
+- `/app/utils/germanTexts.ts` – Centralized German text constants for all UI strings and error messages
+- `/app/utils/formatting.ts` – German number formatting utilities supporting both comma and dot input parsing
 
 ### Context & State Management
 
@@ -112,6 +120,7 @@
 - **Coverage**: Both component and E2E tests use data-testids for consistent testing approach
 
 ### Manual Testing Requirements
+
 - Lighting quality assessment
 - Performance validation under different hardware conditions
 - **OrbitControls functionality**: Camera controls cannot be automatically tested with Cypress because WebGL canvas content is not accessible to DOM testing tools. Manual verification required for:
@@ -144,6 +153,7 @@
   - Camera target focused on pylon center at [0, 1.4, 0]
 
 - **Task 3**: Dynamic Pylon Size Configuration (✅ Completed)
+
   - Created React Context-based state management for pylon configuration
   - Implemented dimension controls with sliders and numeric inputs
   - Added real-time 3D model updates within 1 second of changes
@@ -151,3 +161,13 @@
   - Integrated dynamic camera targeting that adjusts with pylon dimensions
   - Established architectural foundation for future configuration features
   - Comprehensive test coverage for UI components and validation logic
+
+- **Task 4**: German Localization for Interface Labels (✅ Completed)
+  - Converted all UI text elements to German language
+  - Created centralized German text constants file (`/app/utils/germanTexts.ts`)
+  - Implemented German number formatting utilities (`/app/utils/formatting.ts`)
+  - Applied German decimal notation (comma separator) to all displays
+  - Converted validation error messages to German with proper formatting
+  - Updated text inputs to accept both comma and dot decimal formats
+  - Maintained all existing functionality while adding localization
+  - Updated component tests to verify German text and formatting

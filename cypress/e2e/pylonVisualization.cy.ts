@@ -7,11 +7,11 @@ describe("3D Pylon Visualization", () => {
     // Check page content using data-testids
     cy.get('[data-testid="page-title"]').should(
       "have.text",
-      "Pylon Configurator POC"
+      "Pylon Konfigurator POC"
     );
     cy.get('[data-testid="page-description"]').should(
       "have.text",
-      "3D Visualization of Advertising Pylons"
+      "3D Visualisierung von Werbepylonen"
     );
 
     // Check 3D canvas is rendered and visible

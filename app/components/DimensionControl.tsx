@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from "react";
+import { germanTexts } from "../utils/germanTexts";
+import { formatGermanNumber, parseGermanNumber } from "../utils/formatting";
 
 interface DimensionControlProps {
   label: string;
@@ -10,6 +12,7 @@ interface DimensionControlProps {
   step: number;
   unit: string;
   onChange: (value: number) => void;
+  getRangeErrorMessage: (min: number, max: number) => string;
   testId?: string;
 }
 
@@ -21,14 +24,15 @@ export default function DimensionControl({
   step,
   unit,
   onChange,
+  getRangeErrorMessage,
   testId,
 }: DimensionControlProps) {
-  const [inputValue, setInputValue] = useState(value.toString());
+  const [inputValue, setInputValue] = useState(formatGermanNumber(value));
   const [error, setError] = useState<string>("");
 
   // Update input value when prop value changes
   useEffect(() => {
-    setInputValue(value.toString());
+    setInputValue(formatGermanNumber(value));
     setError("");
   }, [value]);
 
@@ -44,31 +48,43 @@ export default function DimensionControl({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setInputValue(newValue);
-      setError("");
 
-      const numValue = parseFloat(newValue);
-      if (!isNaN(numValue)) {
-        if (numValue < min || numValue > max) {
-          setError(`Value must be between ${min}${unit} and ${max}${unit}`);
+      // Validate input in real-time for error messages
+      if (newValue.trim() === "") {
+        setError("");
+      } else {
+        const numValue = parseGermanNumber(newValue);
+        if (isNaN(numValue)) {
+          setError(germanTexts.validation.invalidNumber);
+        } else if (numValue < min || numValue > max) {
+          setError(getRangeErrorMessage(min, max));
         } else {
-          onChange(numValue);
+          setError("");
         }
-      } else if (newValue !== "") {
-        setError("Please enter a valid number");
       }
     },
-    [min, max, unit, onChange]
+    [min, max, getRangeErrorMessage]
   );
 
   const handleInputBlur = useCallback(() => {
-    const numValue = parseFloat(inputValue);
-    if (isNaN(numValue) || numValue < min || numValue > max) {
-      // Reset to current valid value
-      setInputValue(value.toString());
+    // Handle both German (comma) and English (dot) decimal notation
+    const numValue = parseGermanNumber(inputValue);
+
+    if (isNaN(numValue) || inputValue.trim() === "") {
+      // Reset to current valid value if input is invalid or empty
+      setInputValue(formatGermanNumber(value));
+      setError("");
+    } else if (numValue >= min && numValue <= max) {
+      // Valid value - update and format
+      onChange(numValue);
+      setInputValue(formatGermanNumber(numValue));
+      setError("");
+    } else {
+      // Invalid range - reset to current valid value and clear error
+      setInputValue(formatGermanNumber(value));
       setError("");
     }
-  }, [inputValue, value, min, max]);
-
+  }, [inputValue, value, min, max, onChange]);
   return (
     <div className="form-control space-y-2" data-testid={testId}>
       <label className="label">
@@ -82,7 +98,7 @@ export default function DimensionControl({
           className="label-text-alt text-primary"
           data-testid={`${testId}-display`}
         >
-          {value.toFixed(1)}
+          {formatGermanNumber(value)}
           {unit}
         </span>
       </label>
@@ -115,17 +131,14 @@ export default function DimensionControl({
       {/* Numeric Input */}
       <div className="w-full">
         <input
-          type="number"
-          min={min}
-          max={max}
-          step={step}
+          type="text"
           value={inputValue}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
-          className={`input input-bordered input-sm w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+          className={`input input-bordered input-sm w-full ${
             error ? "input-error" : ""
           }`}
-          placeholder={`${min}-${max}`}
+          placeholder={`${formatGermanNumber(min)}-${formatGermanNumber(max)}`}
           aria-label={`${label} numeric input`}
           data-testid={`${testId}-input`}
         />

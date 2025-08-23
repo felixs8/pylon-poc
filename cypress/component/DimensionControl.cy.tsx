@@ -1,32 +1,34 @@
 import DimensionControl from "../../app/components/DimensionControl";
 
 describe("DimensionControl Component", () => {
+  // Generic error message function for tests
+  const getRangeErrorMessage = (min: number, max: number) =>
+    `Wert muss zwischen ${min.toFixed(1).replace(".", ",")}m und ${max.toFixed(1).replace(".", ",")}m liegen`;
+
   it("renders correctly with all elements", () => {
     const mockOnChange = cy.stub();
 
     cy.mount(
       <DimensionControl
-        label="Height"
+        label="Höhe"
         value={3.0}
         min={1.0}
         max={8.0}
         step={0.1}
         unit="m"
         onChange={mockOnChange}
+        getRangeErrorMessage={getRangeErrorMessage}
         testId="height-control"
       />
     );
 
     // Check label
-    cy.get('[data-testid="height-control-label"]').should(
-      "have.text",
-      "Height"
-    );
+    cy.get('[data-testid="height-control-label"]').should("have.text", "Höhe");
 
-    // Check display value
+    // Check display value (German formatting with comma)
     cy.get('[data-testid="height-control-display"]').should(
       "have.text",
-      "3.0m"
+      "3,0m"
     );
 
     // Check range markers - they should show min and max with unit
@@ -52,6 +54,7 @@ describe("DimensionControl Component", () => {
         step={0.1}
         unit="m"
         onChange={mockOnChange}
+        getRangeErrorMessage={getRangeErrorMessage}
         testId="width-control"
       />
     );
@@ -71,13 +74,14 @@ describe("DimensionControl Component", () => {
 
     cy.mount(
       <DimensionControl
-        label="Depth"
+        label="Tiefe"
         value={0.5}
         min={0.1}
         max={1.0}
         step={0.1}
         unit="m"
         onChange={mockOnChange}
+        getRangeErrorMessage={getRangeErrorMessage}
         testId="depth-control"
       />
     );
@@ -85,10 +89,10 @@ describe("DimensionControl Component", () => {
     // Enter invalid value (above max)
     cy.get('[data-testid="depth-control-input"]').clear().type("1.5");
 
-    // Check error message appears - the format matches what's in the component
+    // Check error message appears - German format with comma decimal
     cy.get('[data-testid="depth-control-error"]').should(
       "have.text",
-      "Value must be between 0.1m and 1m"
+      "Wert muss zwischen 0,1m und 1,0m liegen"
     );
   });
 
@@ -97,13 +101,14 @@ describe("DimensionControl Component", () => {
 
     cy.mount(
       <DimensionControl
-        label="Height"
+        label="Höhe"
         value={3.0}
         min={1.0}
         max={8.0}
         step={0.1}
         unit="m"
         onChange={mockOnChange}
+        getRangeErrorMessage={getRangeErrorMessage}
         testId="height-control"
       />
     );
@@ -112,8 +117,11 @@ describe("DimensionControl Component", () => {
     cy.get('[data-testid="height-control-input"]').clear().type("10");
     cy.get('[data-testid="height-control-input"]').blur();
 
-    // Input should reset to original value
-    cy.get('[data-testid="height-control-input"]').should("have.value", "3");
+    // Wait for state update
+    cy.wait(100);
+
+    // Input should reset to original value with German formatting (comma)
+    cy.get('[data-testid="height-control-input"]').should("have.value", "3,0");
 
     // Error should clear
     cy.get('[data-testid="height-control-error"]').should("not.exist");

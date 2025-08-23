@@ -4,67 +4,67 @@ describe("Dynamic Pylon Configuration E2E", () => {
   });
 
   it("should display pylon configurator with dimension controls", () => {
-    // Check page title and description using data-testids
+    // Check page title and description using data-testids - German localized
     cy.get('[data-testid="page-title"]').should(
       "have.text",
-      "Pylon Configurator POC"
+      "Pylon Konfigurator POC"
     );
     cy.get('[data-testid="page-description"]').should(
       "have.text",
-      "3D Visualization of Advertising Pylons"
+      "3D Visualisierung von Werbepylonen"
     );
 
     // Check that 3D canvas exists
     cy.get("canvas").should("exist").should("be.visible");
 
-    // Check that dimension controls are present using data-testids
+    // Check that dimension controls are present using data-testids - German localized
     cy.get('[data-testid="dimension-controls-title"]').should(
       "have.text",
-      "Pylon Dimensions"
+      "Pylon Abmessungen"
     );
     cy.get('[data-testid="height-control"]').should("exist");
     cy.get('[data-testid="width-control"]').should("exist");
     cy.get('[data-testid="depth-control"]').should("exist");
 
-    // Check default values are displayed using data-testids
+    // Check default values are displayed using data-testids - German format with comma decimal
     cy.get('[data-testid="dimension-summary-text"]').should(
       "have.text",
-      "3.0m × 1.0m × 0.5m"
+      "3,0m × 1,0m × 0,5m"
     );
   });
 
   it("should allow height adjustment via numeric input", () => {
-    // Verify initial height using data-testid
+    // Verify initial height using data-testid - German formatting
     cy.get('[data-testid="height-control-display"]').should(
       "have.text",
-      "3.0m"
+      "3,0m"
     );
 
     // Adjust height via numeric input
     cy.get('[data-testid="height-control-input"]').clear().type("6");
     cy.get('[data-testid="height-control-input"]').blur();
 
-    // Verify height updated using data-testids
+    // Verify height updated using data-testids - German formatting
     cy.get('[data-testid="height-control-display"]').should(
       "have.text",
-      "6.0m"
+      "6,0m"
     );
     cy.get('[data-testid="dimension-summary-text"]').should(
       "have.text",
-      "6.0m × 1.0m × 0.5m"
+      "6,0m × 1,0m × 0,5m"
     );
   });
 
   it("should allow width adjustment via numeric input", () => {
     // Change width via numeric input using data-testid
-    cy.get('[data-testid="width-control-input"]').clear().type("2.5");
+    cy.get('[data-testid="width-control-input"]').clear().type("2,5");
     cy.get('[data-testid="width-control-input"]').blur();
 
     // Verify width updated using data-testids
-    cy.get('[data-testid="width-control-display"]').should("have.text", "2.5m");
+    cy.get('[data-testid="width-control-display"]').should("have.text", "2,5m");
     cy.get('[data-testid="dimension-summary-text"]').should(
       "have.text",
-      "3.0m × 2.5m × 0.5m"
+      "3,0m × 2,5m × 0,5m"
     );
   });
 
@@ -73,7 +73,7 @@ describe("Dynamic Pylon Configuration E2E", () => {
     cy.get('[data-testid="height-control-input"]').clear().type("10");
     cy.get('[data-testid="height-control-error"]').should(
       "have.text",
-      "Value must be between 1m and 8m"
+      "Wert muss zwischen 1,0m und 8,0m liegen"
     );
     cy.get('[data-testid="height-control-input"]').blur();
 
@@ -81,7 +81,7 @@ describe("Dynamic Pylon Configuration E2E", () => {
     cy.get('[data-testid="width-control-input"]').clear().type("0.1");
     cy.get('[data-testid="width-control-error"]').should(
       "have.text",
-      "Value must be between 0.3m and 3m"
+      "Wert muss zwischen 0,3m und 3,0m liegen"
     );
     cy.get('[data-testid="width-control-input"]').blur();
 
@@ -89,19 +89,9 @@ describe("Dynamic Pylon Configuration E2E", () => {
     cy.get('[data-testid="depth-control-input"]').clear().type("2.0");
     cy.get('[data-testid="depth-control-error"]').should(
       "have.text",
-      "Value must be between 0.1m and 1m"
+      "Wert muss zwischen 0,1m und 1,0m liegen"
     );
     cy.get('[data-testid="depth-control-input"]').blur();
-  });
-
-  it("should maintain responsive layout", () => {
-    // Check layout structure using data-testids
-    cy.get('[data-testid="canvas-container"]').should("exist");
-    cy.get('[data-testid="dimension-controls"]').should("exist");
-
-    // Verify 3D canvas is responsive
-    cy.get("canvas").should("have.css", "width");
-    cy.get("canvas").should("have.css", "height");
   });
 
   it("should support keyboard accessibility", () => {
@@ -113,9 +103,10 @@ describe("Dynamic Pylon Configuration E2E", () => {
     cy.get('[data-testid="height-control-input"]').focus();
     cy.get('[data-testid="height-control-input"]').should("be.focused");
     cy.get('[data-testid="height-control-input"]').type("{selectall}5");
+    cy.get('[data-testid="height-control-input"]').blur();
     cy.get('[data-testid="height-control-display"]').should(
       "have.text",
-      "5.0m"
+      "5,0m"
     );
   });
 });

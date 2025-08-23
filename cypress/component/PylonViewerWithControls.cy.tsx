@@ -13,7 +13,7 @@ describe("PylonViewer with Configuration", () => {
     cy.get("canvas").should("exist");
     cy.get('[data-testid="dimension-controls-title"]').should(
       "have.text",
-      "Pylon Dimensions"
+      "Pylon Abmessungen"
     );
   });
 });
