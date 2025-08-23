@@ -69,7 +69,7 @@
 
 - **Geometry**: BoxGeometry with fixed dimensions (3.0m height, 1.0m width, 0.5m depth)
 - **Material**: MeshStandardMaterial with light blue color (#87CEEB)
-- **Position**: Centered on ground plane with proper Y positioning
+- **Position**: Positioned at [0, height/2 - 0.1, 0] to sit properly on ground plane at y = -0.1
 - **Rendering**: Casts and receives shadows for realistic appearance
 
 ### Performance

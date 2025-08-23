@@ -12,7 +12,12 @@ export default function Pylon() {
   const depth = 0.5;
 
   return (
-    <mesh ref={meshRef} position={[0, height / 2, 0]} castShadow receiveShadow>
+    <mesh
+      ref={meshRef}
+      position={[0, height / 2 - 0.1, 0]}
+      castShadow
+      receiveShadow
+    >
       {/* Simple rectangular geometry */}
       <boxGeometry args={[width, height, depth]} />
 

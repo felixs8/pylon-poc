@@ -15,7 +15,7 @@ describe("3D Pylon Visualization", () => {
 
   it("renders without JavaScript errors", () => {
     // AC1: Scene renders without errors
-    cy.window().then((win) => {
+    cy.window().then(() => {
       // Check that no unhandled JavaScript errors occurred
       cy.on("window:error", (error) => {
         throw new Error(`JavaScript error occurred: ${error.message}`);
