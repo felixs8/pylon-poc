@@ -94,6 +94,7 @@
 - **PriceCalculator**: Rule-based pricing logic considering all parameters
 - **GeometryGenerator**: Parametric math functions for shape generation
 - **ValidationRules**: Parameter validation and constraint checking
+- **LocalizationUtils**: German number formatting and currency display utilities
 
 ## Data Flow Architecture
 
