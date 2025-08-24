@@ -71,7 +71,6 @@
 - `/cypress/component/DimensionControl.cy.tsx` – Individual control component testing with validation, input handling, and error states
 - `/cypress/component/MaterialSelector.cy.tsx` – Material selection component testing with German labels and accessibility
 - `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting and material display
-- `/cypress/component/DimensionControls.cy.tsx` – Legacy test file (renamed component) maintaining compatibility
 
 ### Configuration
 
@@ -125,7 +124,7 @@
 
 ### Automated Tests (33 total)
 
-- **Component Tests (27)**: ConfigurationPanel (6), ConfigurationSummary (6), DimensionControl (4), DimensionControls (2), MaterialSelector (6), Home (1), PylonViewer (1), PylonViewerWithControls (1)
+- **Component Tests (27)**: ConfigurationPanel (6), ConfigurationSummary (6), DimensionControl (4), , MaterialSelector (6), Home (1), PylonViewer (1), PylonViewerWithControls (1)
 - **E2E Tests (15)**: Configuration testing (5), 3D visualization (3), material selection (7) with data-testid precision targeting
 
 ### Data-Testid Testing Strategy
