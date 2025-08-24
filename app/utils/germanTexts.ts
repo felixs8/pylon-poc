@@ -27,6 +27,13 @@ export const germanTexts = {
     composite: "Verbundwerkstoff",
   },
 
+  // Color controls
+  colorControls: {
+    title: "Farbe",
+    label: "Farbe auswählen",
+    current: "Aktuelle Farbe",
+  },
+
   // Error messages with German decimal formatting
   validation: {
     invalidNumber: "Bitte geben Sie eine gültige Zahl ein",

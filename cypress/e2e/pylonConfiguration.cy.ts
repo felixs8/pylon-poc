@@ -109,4 +109,41 @@ describe("Dynamic Pylon Configuration E2E", () => {
       "5,0m"
     );
   });
+
+  it("should allow color selection with real-time updates", () => {
+    // Check initial color display
+    cy.get('[data-testid="color-summary-text"]').should("contain", "#87CEEB");
+    cy.get('[data-testid="color-summary-swatch"]').should(
+      "have.css",
+      "background-color",
+      "rgb(135, 206, 235)"
+    );
+
+    // Check color picker is present
+    cy.get('[data-testid="color-picker"]').should("exist");
+    cy.get('[data-testid="hex-color-picker"]').should("exist");
+
+    // Verify color picker has German labels
+    cy.get('[data-testid="color-picker-title"]').should("contain", "Farbe");
+    cy.get('[data-testid="color-picker-label"]').should(
+      "contain",
+      "Farbe auswählen"
+    );
+  });
+
+  it("should integrate color selection with other controls", () => {
+    // Change dimensions and material, verify color persists
+    cy.get('[data-testid="height-control-input"]').clear().type("4");
+    cy.get('[data-testid="height-control-input"]').blur();
+
+    cy.get('[data-testid="material-metal-radio"]').click();
+
+    // Color should still be default
+    cy.get('[data-testid="color-summary-text"]').should("contain", "#87CEEB");
+
+    // Summary should show all updated values
+    cy.get('[data-testid="dimension-summary-text"]').should("contain", "4,0m");
+    cy.get('[data-testid="material-summary-text"]').should("contain", "Metall");
+    cy.get('[data-testid="color-summary-text"]').should("contain", "#87CEEB");
+  });
 });

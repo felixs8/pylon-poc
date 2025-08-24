@@ -114,4 +114,20 @@ describe("ConfigurationPanel Component", () => {
       "Metall"
     );
   });
+
+  it("includes color picker integration", () => {
+    cy.mount(
+      <PylonConfigurationProvider>
+        <ConfigurationPanel />
+      </PylonConfigurationProvider>
+    );
+
+    // Check that color picker is present
+    cy.get('[data-testid="color-picker"]').should("exist");
+    cy.get('[data-testid="color-picker-title"]').should("contain", "Farbe");
+
+    // Check initial color display in summary
+    cy.get('[data-testid="color-summary"]').should("exist");
+    cy.get('[data-testid="color-summary-text"]').should("contain", "#87CEEB");
+  });
 });

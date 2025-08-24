@@ -31,12 +31,21 @@ describe("ConfigurationSummary Component", () => {
       "have.text",
       "Kunststoff"
     );
+
+    // Check color is displayed
+    cy.get('[data-testid="color-summary"]').should("exist");
+    cy.get('[data-testid="color-summary-text"]').should("have.text", "#87CEEB");
+    cy.get('[data-testid="color-summary-swatch"]').should(
+      "have.css",
+      "background-color",
+      "rgb(135, 206, 235)"
+    );
   });
 
   it("updates when configuration changes", () => {
     // Test wrapper to simulate configuration changes
     const TestWrapper = () => {
-      const { setHeight, setMaterial } = usePylonConfiguration();
+      const { setHeight, setMaterial, setColor } = usePylonConfiguration();
 
       return (
         <div>
@@ -45,6 +54,9 @@ describe("ConfigurationSummary Component", () => {
           </button>
           <button data-cy="set-material" onClick={() => setMaterial("metal")}>
             Set Material Metal
+          </button>
+          <button data-cy="set-color" onClick={() => setColor("#FF5733")}>
+            Set Color Red
           </button>
           <ConfigurationSummary />
         </div>
@@ -60,6 +72,7 @@ describe("ConfigurationSummary Component", () => {
     // Check initial values
     cy.contains("3,0m × 1,0m × 0,5m").should("be.visible");
     cy.contains("Kunststoff").should("be.visible");
+    cy.contains("#87CEEB").should("be.visible");
 
     // Click to change height
     cy.get('[data-cy="set-height"]').click();
@@ -68,5 +81,14 @@ describe("ConfigurationSummary Component", () => {
     // Click to change material
     cy.get('[data-cy="set-material"]').click();
     cy.contains("Metall").should("be.visible");
+
+    // Click to change color
+    cy.get('[data-cy="set-color"]').click();
+    cy.contains("#FF5733").should("be.visible");
+    cy.get('[data-testid="color-summary-swatch"]').should(
+      "have.css",
+      "background-color",
+      "rgb(255, 87, 51)"
+    );
   });
 });

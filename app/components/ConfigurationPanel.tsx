@@ -7,6 +7,7 @@ import {
 } from "../hooks/usePylonConfiguration";
 import DimensionControl from "./DimensionControl";
 import MaterialSelector from "./MaterialSelector";
+import ColorPicker from "./ColorPicker";
 import ConfigurationSummary from "./ConfigurationSummary";
 import { germanTexts } from "../utils/germanTexts";
 
@@ -72,6 +73,10 @@ export default function ConfigurationPanel() {
         {/* Material Selection */}
         <div className="divider"></div>
         <MaterialSelector />
+
+        {/* Color Selection */}
+        <div className="divider"></div>
+        <ColorPicker />
 
         {/* Configuration Summary */}
         <div className="divider"></div>

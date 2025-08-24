@@ -6,7 +6,7 @@ import { germanTexts } from "../utils/germanTexts";
 
 export default function ConfigurationSummary() {
   const { configuration } = usePylonConfiguration();
-  const { dimensions, material } = configuration;
+  const { dimensions, material, color } = configuration;
 
   return (
     <div
@@ -24,6 +24,14 @@ export default function ConfigurationSummary() {
         {material === "plastic" && germanTexts.materialControls.plastic}
         {material === "composite" && germanTexts.materialControls.composite}
       </p>
+      <div className="flex items-center space-x-2" data-testid="color-summary">
+        <div
+          className="w-4 h-4 rounded border border-base-content/20"
+          style={{ backgroundColor: color }}
+          data-testid="color-summary-swatch"
+        />
+        <span data-testid="color-summary-text">{color.toUpperCase()}</span>
+      </div>
     </div>
   );
 }

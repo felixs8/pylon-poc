@@ -1,6 +1,6 @@
 # Current Architecture
 
-3D pylon configurator POC with German localization, material selection, and basic Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC with German localization, material selection, color customization, and Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 
@@ -13,15 +13,20 @@
   - **Metall** (Metal): High metalness (0.8), low roughness (0.2) for shiny metallic appearance
   - **Kunststoff** (Plastic): Low metalness (0.1), medium roughness (0.8) for matte plastic finish
   - **Verbundwerkstoff** (Composite): Balanced properties (metalness 0.4, roughness 0.6) for composite material look
+- **Color Selection Interface**: Interactive RGB color picker with real-time 3D preview using react-colorful library:
+  - **HexColorPicker**: Lightweight 2.8KB component with WAI-ARIA accessibility compliance
+  - **German Labels**: Color picker with German text ("Farbe", "Farbe auswählen", "Aktuelle Farbe")
+  - **Real-time Updates**: Color changes applied to 3D pylon within 1 second while preserving material properties
+  - **Visual Feedback**: Color swatch display with hex value in configuration summary
 - **3D Material Properties**: Visual differentiation of materials in 3D rendering with proper metalness/roughness values
 - **German Number Formatting**: Text inputs accept both comma and dot decimals, display shows German format with comma separators
 - **German Error Messages**: Validation messages in German with proper decimal notation
-- **Real-time 3D Updates**: Pylon geometry and material updates within 1 second of configuration changes
+- **Real-time 3D Updates**: Pylon geometry, material, and color updates within 1 second of configuration changes
 - **Input Validation**: Range validation with German localized user feedback for invalid values
 - **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
 - **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception and material visualization
 - **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
-- **Configuration Summary**: Real-time display of current dimensions and material selection in German
+- **Configuration Summary**: Real-time display of current dimensions, material, and color selection in German with visual color swatch
 - **3D Scene Foundation**: Ground plane and basic scene setup for future interactive features
 
 ## Current Techstack
@@ -30,6 +35,7 @@
 - **Three.js + React Three Fiber**: WebGL-based 3D rendering with React integration (@react-three/fiber ^8.15.0)
 - **Three.js Utilities**: @react-three/drei ^9.92.0 for 3D helpers and camera controls
 - **React Context**: Global state management for pylon configuration data
+- **react-colorful**: Ultra-lightweight (2.8KB) color picker with TypeScript support and WAI-ARIA accessibility
 - **Tailwind + DaisyUI Styling**: Utility-first CSS with component library integration
 - **Cypress Testing Suite**: Both E2E and component testing configured and working
 - **TypeScript Support**: Full TypeScript configuration with Three.js type definitions
@@ -41,10 +47,11 @@
 - `/app/page.tsx` – Main page with German localized content and Context provider
 - `/app/components/PylonViewer.tsx` – 3D canvas container with integrated configuration panel
 - `/app/components/Pylon.tsx` – Dynamic pylon geometry component consuming Context state with material properties
-- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, and configuration summary
+- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, color picker, and configuration summary
 - `/app/components/DimensionControl.tsx` – Individual dimension control with German validation, text inputs, and error handling
 - `/app/components/MaterialSelector.tsx` – Material selection interface with radio buttons and German labels
-- `/app/components/ConfigurationSummary.tsx` – Configuration summary component displaying current dimensions and material in German
+- `/app/components/ColorPicker.tsx` – Interactive RGB color picker component using react-colorful with German localization
+- `/app/components/ConfigurationSummary.tsx` – Configuration summary component displaying current dimensions, material, and color in German with visual color swatch
 
 ### Localization & Utilities
 
@@ -70,11 +77,12 @@
 - `/cypress/component/ConfigurationPanel.cy.tsx` – Configuration UI integration testing with component composition verification
 - `/cypress/component/DimensionControl.cy.tsx` – Individual control component testing with validation, input handling, and error states
 - `/cypress/component/MaterialSelector.cy.tsx` – Material selection component testing with German labels and accessibility
-- `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting and material display
+- `/cypress/component/ColorPicker.cy.tsx` – Color picker component testing with German labels and accessibility
+- `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting, material, and color display
 
 ### Configuration
 
-- `/package.json` – Project dependencies including Three.js libraries (three, @react-three/fiber, @react-three/drei, @types/three)
+- `/package.json` – Project dependencies including Three.js libraries (three, @react-three/fiber, @react-three/drei, @types/three, react-colorful)
 - `/cypress.config.ts` – Cypress testing configuration
 - `/next.config.ts` – Next.js configuration with TypeScript
 - `/tsconfig.json` – TypeScript compiler configuration

@@ -20,6 +20,7 @@ export type MaterialType = "metal" | "plastic" | "composite";
 export interface PylonConfiguration {
   dimensions: PylonDimensions;
   material: MaterialType;
+  color: string;
 }
 
 // Context value interface
@@ -30,6 +31,7 @@ interface PylonConfigurationContextValue {
   setWidth: (width: number) => void;
   setDepth: (depth: number) => void;
   setMaterial: (material: MaterialType) => void;
+  setColor: (color: string) => void;
 }
 
 // Validation constants
@@ -47,6 +49,7 @@ const DEFAULT_CONFIGURATION: PylonConfiguration = {
     depth: 0.5,
   },
   material: "plastic",
+  color: "#87CEEB",
 };
 
 // Create the context
@@ -132,6 +135,13 @@ export function PylonConfigurationProvider({
     }));
   }, []);
 
+  const setColor = useCallback((color: string) => {
+    setConfiguration((prev) => ({
+      ...prev,
+      color,
+    }));
+  }, []);
+
   const contextValue: PylonConfigurationContextValue = {
     configuration,
     updateDimensions,
@@ -139,6 +149,7 @@ export function PylonConfigurationProvider({
     setWidth,
     setDepth,
     setMaterial,
+    setColor,
   };
 
   return (

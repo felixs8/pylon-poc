@@ -24,7 +24,7 @@ export default function Pylon() {
   const meshRef = useRef<Mesh>(null);
   const { configuration } = usePylonConfiguration();
   const { height, width, depth } = configuration.dimensions;
-  const { material } = configuration;
+  const { material, color } = configuration;
 
   const materialProps = MATERIAL_PROPERTIES[material];
 
@@ -40,7 +40,7 @@ export default function Pylon() {
 
       {/* Dynamic material based on configuration */}
       <meshStandardMaterial
-        color="#87CEEB"
+        color={color}
         metalness={materialProps.metalness}
         roughness={materialProps.roughness}
       />
