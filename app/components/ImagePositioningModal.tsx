@@ -7,6 +7,7 @@ import { germanTexts } from "../utils/germanTexts";
 interface ImagePositioningModalProps {
   file: File;
   pylonDimensions: PylonDimensions;
+  pylonColor: string;
   onConfirm: (position: { x: number; y: number }, scale: number) => void;
   onCancel: () => void;
 }
@@ -14,6 +15,7 @@ interface ImagePositioningModalProps {
 export default function ImagePositioningModal({
   file,
   pylonDimensions,
+  pylonColor,
   onConfirm,
   onCancel,
 }: ImagePositioningModalProps) {
@@ -73,8 +75,8 @@ export default function ImagePositioningModal({
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw pylon face background (white to match the final texture)
-    ctx.fillStyle = "#FFFFFF";
+    // Draw pylon face background using the selected color
+    ctx.fillStyle = pylonColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw pylon face border
@@ -98,7 +100,7 @@ export default function ImagePositioningModal({
 
     // Draw image
     ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
-  }, [image, position, scale]);
+  }, [image, position, scale, pylonColor]);
 
   // Redraw when dependencies change
   useEffect(() => {
@@ -132,10 +134,24 @@ export default function ImagePositioningModal({
     const newX = x - dragStart.x;
     const newY = y - dragStart.y;
 
-    // Apply boundary constraints (keep image partially within canvas)
-    const maxOffset = Math.min(canvas.width, canvas.height) * 0.3;
-    const constrainedX = Math.max(-maxOffset, Math.min(maxOffset, newX));
-    const constrainedY = Math.max(-maxOffset, Math.min(maxOffset, newY));
+    // Allow movement to full canvas edges (with small buffer to keep some image visible)
+    const imageAspectRatio = image ? image.width / image.height : 1;
+    let imageWidth = canvas.width * scale;
+    let imageHeight = imageWidth / imageAspectRatio;
+
+    if (imageHeight > canvas.height * scale) {
+      imageHeight = canvas.height * scale;
+      imageWidth = imageHeight * imageAspectRatio;
+    }
+
+    // Allow image to move until only 20% is still visible
+    const minVisibleRatio = 0.2;
+    const maxOffsetX = (canvas.width + imageWidth * (1 - minVisibleRatio)) / 2;
+    const maxOffsetY =
+      (canvas.height + imageHeight * (1 - minVisibleRatio)) / 2;
+
+    const constrainedX = Math.max(-maxOffsetX, Math.min(maxOffsetX, newX));
+    const constrainedY = Math.max(-maxOffsetY, Math.min(maxOffsetY, newY));
 
     setPosition({ x: constrainedX, y: constrainedY });
   };

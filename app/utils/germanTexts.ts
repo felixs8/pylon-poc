@@ -55,7 +55,7 @@ export const germanTexts = {
   validation: {
     invalidNumber: "Bitte geben Sie eine gültige Zahl ein",
     fileTooLarge: "Datei zu groß. Maximum 10MB erlaubt.",
-    invalidFileType: "Nur JPG und PNG Dateien erlaubt.",
+    invalidFileType: "Nur JPG Dateien erlaubt.",
     heightRange: (min: number, max: number) =>
       `Wert muss zwischen ${formatGermanNumber(min)}m und ${formatGermanNumber(
         max

@@ -15,8 +15,8 @@ export default function ImageUpload() {
 
   // File validation
   const validateFile = (file: File): string | null => {
-    // Check file type
-    if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
+    // Check file type - only JPG allowed
+    if (!file.type.match(/^image\/(jpeg|jpg)$/)) {
       return germanTexts.validation.invalidFileType;
     }
 
@@ -117,7 +117,7 @@ export default function ImageUpload() {
         <input
           ref={fileInputRef}
           type="file"
-          accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+          accept=".jpg,.jpeg,image/jpeg"
           onChange={handleFileSelect}
           className="file-input file-input-bordered w-full"
           data-testid="image-file-input"
@@ -159,6 +159,7 @@ export default function ImageUpload() {
         <ImagePositioningModal
           file={selectedFile}
           pylonDimensions={configuration.dimensions}
+          pylonColor={configuration.color}
           onConfirm={handleModalConfirm}
           onCancel={handleModalCancel}
         />

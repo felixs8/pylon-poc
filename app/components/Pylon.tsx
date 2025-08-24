@@ -50,8 +50,8 @@ export default function Pylon() {
     img.crossOrigin = "anonymous";
 
     img.onload = () => {
-      // Clear canvas with white background (so image is visible regardless of pylon color)
-      ctx.fillStyle = "#FFFFFF";
+      // Clear canvas and add background using the selected pylon color
+      ctx.fillStyle = color;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Calculate image dimensions and position
@@ -96,6 +96,7 @@ export default function Pylon() {
     image.isUploaded,
     height,
     width,
+    color,
   ]);
 
   // Create materials array for different faces

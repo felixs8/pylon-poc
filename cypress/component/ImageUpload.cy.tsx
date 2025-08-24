@@ -22,7 +22,7 @@ describe("ImageUpload Component", () => {
   it("renders file input with correct attributes", () => {
     cy.get('[data-testid="image-file-input"]')
       .should("exist")
-      .and("have.attr", "accept", ".jpg,.jpeg,.png,image/jpeg,image/png")
+      .and("have.attr", "accept", ".jpg,.jpeg,image/jpeg")
       .and("have.attr", "type", "file");
   });
 
@@ -47,7 +47,7 @@ describe("ImageUpload Component", () => {
 
     cy.get('[data-testid="image-upload-error"]')
       .should("exist")
-      .and("contain", "Nur JPG und PNG Dateien erlaubt.");
+      .and("contain", "Nur JPG Dateien erlaubt.");
   });
 
   it("shows error message for file too large", () => {
@@ -121,20 +121,20 @@ describe("ImageUpload Component", () => {
     cy.get('[data-testid="image-upload-error"]').should("not.exist");
   });
 
-  it("validates PNG files correctly", () => {
-    const pngFile = new File(["png content"], "test.png", {
-      type: "image/png",
+  it("validates JPG files correctly", () => {
+    const jpgFile = new File(["jpg content"], "test.jpg", {
+      type: "image/jpeg",
     });
 
     cy.get('[data-testid="image-file-input"]').then(($input) => {
       const input = $input[0] as HTMLInputElement;
       const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(pngFile);
+      dataTransfer.items.add(jpgFile);
       input.files = dataTransfer.files;
       input.dispatchEvent(new Event("change", { bubbles: true }));
     });
 
-    // Should not show error for valid PNG
+    // Should not show error for valid JPG
     cy.get('[data-testid="image-upload-error"]').should("not.exist");
   });
 });
