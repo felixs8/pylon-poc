@@ -12,6 +12,53 @@ describe("ImageUpload Component", () => {
     );
   });
 
+  function uploadInvalidFile() {
+    // Create a mock file with invalid type
+    const invalidFile = new File(["content"], "test.txt", {
+      type: "text/plain",
+    });
+
+    cy.get('[data-testid="image-file-input"]').then(($input) => {
+      const input = $input[0] as HTMLInputElement;
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(invalidFile);
+      input.files = dataTransfer.files;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+
+  function uploadValidFile() {
+    // Create a mock file with valid type
+    const validFile = new File(["content"], "test.jpg", {
+      type: "image/jpeg",
+    });
+
+    cy.get('[data-testid="image-file-input"]').then(($input) => {
+      const input = $input[0] as HTMLInputElement;
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(validFile);
+      input.files = dataTransfer.files;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+
+  function uploadToBigFile() {
+    // Create a mock file that's too large (over 10MB)
+    const largeFile = new File(
+      [new ArrayBuffer(11 * 1024 * 1024)],
+      "large.jpg",
+      { type: "image/jpeg" }
+    );
+
+    cy.get('[data-testid="image-file-input"]').then(($input) => {
+      const input = $input[0] as HTMLInputElement;
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(largeFile);
+      input.files = dataTransfer.files;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
+
   it("renders image upload component with German title", () => {
     cy.get('[data-testid="image-upload"]').should("exist");
     cy.get('[data-testid="image-upload-label"]')
@@ -32,18 +79,7 @@ describe("ImageUpload Component", () => {
   });
 
   it("shows error message for invalid file type", () => {
-    // Create a mock file with invalid type
-    const invalidFile = new File(["content"], "test.txt", {
-      type: "text/plain",
-    });
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(invalidFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
+    uploadInvalidFile();
 
     cy.get('[data-testid="image-upload-error"]')
       .should("exist")
@@ -52,19 +88,7 @@ describe("ImageUpload Component", () => {
 
   it("shows error message for file too large", () => {
     // Create a mock file that's too large (over 10MB)
-    const largeFile = new File(
-      [new ArrayBuffer(11 * 1024 * 1024)],
-      "large.jpg",
-      { type: "image/jpeg" }
-    );
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(largeFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
+    uploadToBigFile();
 
     cy.get('[data-testid="image-upload-error"]')
       .should("exist")
@@ -72,69 +96,15 @@ describe("ImageUpload Component", () => {
   });
 
   it("clears error message when valid file is selected", () => {
-    // First show an error
-    const invalidFile = new File(["content"], "test.txt", {
-      type: "text/plain",
-    });
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(invalidFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
+    uploadInvalidFile();
     cy.get('[data-testid="image-upload-error"]').should("exist");
-
-    // Then select a valid file
-    const validFile = new File(["image content"], "test.jpg", {
-      type: "image/jpeg",
-    });
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(validFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
-    // Error should be cleared (modal would open but we can't test that easily)
+    uploadValidFile();
     cy.get('[data-testid="image-upload-error"]').should("not.exist");
   });
 
   it("validates JPEG files correctly", () => {
-    const jpegFile = new File(["jpeg content"], "test.jpeg", {
-      type: "image/jpeg",
-    });
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(jpegFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
+    uploadValidFile();
     // Should not show error for valid JPEG
-    cy.get('[data-testid="image-upload-error"]').should("not.exist");
-  });
-
-  it("validates JPG files correctly", () => {
-    const jpgFile = new File(["jpg content"], "test.jpg", {
-      type: "image/jpeg",
-    });
-
-    cy.get('[data-testid="image-file-input"]').then(($input) => {
-      const input = $input[0] as HTMLInputElement;
-      const dataTransfer = new DataTransfer();
-      dataTransfer.items.add(jpgFile);
-      input.files = dataTransfer.files;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
-    });
-
-    // Should not show error for valid JPG
     cy.get('[data-testid="image-upload-error"]').should("not.exist");
   });
 });
