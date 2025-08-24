@@ -4,16 +4,19 @@
 
 ## Implemented Features
 
-- **German Localization**: Complete German language interface with localized text constants and German decimal formatting
-- **Optimized Configuration Layout**: Three-row flexbox layout design that eliminates vertical scrolling:
-  - **Row 1**: Compact page heading section with reduced padding
-  - **Row 2**: Two-column control layout with "Abmessungen" (dimensions) on left and "Material & Design" on right
-  - **Row 3**: Configuration summary section at bottom with clear visual separation
-  - **Full-Screen Layout**: Page uses full viewport height with 3D canvas and configuration panel simultaneously visible
-  - **Responsive Canvas**: 3D canvas scales to use remaining space after configuration panel sizing
+### Core 3D Visualization
+
 - **3D Canvas Setup**: React Three Fiber integrated with Next.js for WebGL-based 3D rendering
-- **Dynamic Pylon Configuration**: Real-time pylon dimension adjustment with React Context state management
+- **Real-time 3D Updates**: Pylon geometry, material, color, and texture updates within 1 second of configuration changes
 - **Interactive Camera Controls**: Full OrbitControls integration with orbit, zoom, and pan functionality
+- **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
+- **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception and material visualization
+- **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
+- **3D Scene Foundation**: Ground plane and basic scene setup for interactive features
+
+### Pylon Configuration
+
+- **Dynamic Pylon Configuration**: Real-time pylon dimension adjustment with React Context state management
 - **Dimension Controls**: Sliders and numeric inputs for height (1.0-8.0m), width (0.3-3.0m), depth (0.1-1.0m)
 - **Material Selection Interface**: Radio button interface for three material types with German labels:
   - **Metall** (Metal): High metalness (0.8), low roughness (0.2) for shiny metallic appearance
@@ -24,6 +27,15 @@
   - **German Labels**: Color picker with German text ("Farbe", "Farbe auswählen", "Aktuelle Farbe")
   - **Real-time Updates**: Color changes applied to 3D pylon within 1 second while preserving material properties
   - **Visual Feedback**: Color swatch display with hex value in configuration summary
+- **Configuration Summary**: Real-time display of current dimensions, material, color, and image status in German
+
+### Advanced 3D Materials & Textures
+
+- **3D Material Properties**: Visual differentiation of materials in 3D rendering with proper metalness/roughness values
+- **Advanced 3D Texturing**: Multi-material system supporting both base colors and image textures:
+  - **Material Arrays**: Six-sided cube materials with selective texture application
+  - **Texture Orientation**: Proper texture orientation handling with flipY correction
+  - **Texture Visibility**: White background ensures image visibility regardless of base pylon color
 - **Image Upload and Positioning System**: Complete image upload workflow with interactive positioning:
   - **File Validation**: Client-side validation for JPG/PNG files with 10MB size limit and German error messages
   - **Interactive Positioning Modal**: Canvas-based image positioning with drag/zoom controls using German interface ("Bild positionieren")
@@ -32,20 +44,13 @@
   - **Texture Processing**: Browser File API with CanvasTexture generation preserving positioning and scaling
   - **Memory Management**: Proper Object URL cleanup and resource management to prevent memory leaks
   - **State Integration**: Image state integrated into PylonConfigurationContext with position/scale data
-- **3D Material Properties**: Visual differentiation of materials in 3D rendering with proper metalness/roughness values
-- **Advanced 3D Texturing**: Multi-material system supporting both base colors and image textures:
-  - **Material Arrays**: Six-sided cube materials with selective texture application
-  - **Texture Orientation**: Proper texture orientation handling with flipY correction
-  - **Texture Visibility**: White background ensures image visibility regardless of base pylon color
+
+### German Localization & User Experience
+
+- **German Localization**: Complete German language interface with localized text constants and German decimal formatting
 - **German Number Formatting**: Text inputs accept both comma and dot decimals, display shows German format with comma separators
 - **German Error Messages**: Validation messages in German with proper decimal notation including image upload errors
-- **Real-time 3D Updates**: Pylon geometry, material, color, and texture updates within 1 second of configuration changes
 - **Input Validation**: Range validation with German localized user feedback for invalid values
-- **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
-- **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception and material visualization
-- **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
-- **Configuration Summary**: Real-time display of current dimensions, material, color, and image status in German
-- **3D Scene Foundation**: Ground plane and basic scene setup for interactive features
 
 ## Current Techstack
 
