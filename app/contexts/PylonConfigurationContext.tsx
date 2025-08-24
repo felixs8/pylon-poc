@@ -17,10 +17,21 @@ export interface PylonDimensions {
 
 export type MaterialType = "metal" | "plastic" | "composite";
 
+export interface ImageState {
+  file: File | null;
+  objectUrl: string | null;
+  filename: string | null;
+  position: { x: number; y: number };
+  scale: number;
+  isUploaded: boolean;
+  isPositioning: boolean;
+}
+
 export interface PylonConfiguration {
   dimensions: PylonDimensions;
   material: MaterialType;
   color: string;
+  image: ImageState;
 }
 
 // Context value interface
@@ -32,6 +43,8 @@ interface PylonConfigurationContextValue {
   setDepth: (depth: number) => void;
   setMaterial: (material: MaterialType) => void;
   setColor: (color: string) => void;
+  setImage: (imageState: Partial<ImageState>) => void;
+  removeImage: () => void;
 }
 
 // Validation constants
@@ -50,6 +63,15 @@ const DEFAULT_CONFIGURATION: PylonConfiguration = {
   },
   material: "plastic",
   color: "#87CEEB",
+  image: {
+    file: null,
+    objectUrl: null,
+    filename: null,
+    position: { x: 0, y: 0 },
+    scale: 1.0,
+    isUploaded: false,
+    isPositioning: false,
+  },
 };
 
 // Create the context
@@ -142,6 +164,38 @@ export function PylonConfigurationProvider({
     }));
   }, []);
 
+  const setImage = useCallback((imageState: Partial<ImageState>) => {
+    setConfiguration((prev) => ({
+      ...prev,
+      image: {
+        ...prev.image,
+        ...imageState,
+      },
+    }));
+  }, []);
+
+  const removeImage = useCallback(() => {
+    setConfiguration((prev) => {
+      // Clean up object URL if it exists
+      if (prev.image.objectUrl) {
+        URL.revokeObjectURL(prev.image.objectUrl);
+      }
+      
+      return {
+        ...prev,
+        image: {
+          file: null,
+          objectUrl: null,
+          filename: null,
+          position: { x: 0, y: 0 },
+          scale: 1.0,
+          isUploaded: false,
+          isPositioning: false,
+        },
+      };
+    });
+  }, []);
+
   const contextValue: PylonConfigurationContextValue = {
     configuration,
     updateDimensions,
@@ -150,6 +204,8 @@ export function PylonConfigurationProvider({
     setDepth,
     setMaterial,
     setColor,
+    setImage,
+    removeImage,
   };
 
   return (

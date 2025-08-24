@@ -8,6 +8,7 @@ import {
 import DimensionControl from "./DimensionControl";
 import MaterialSelector from "./MaterialSelector";
 import ColorPicker from "./ColorPicker";
+import ImageUpload from "./ImageUpload";
 import ConfigurationSummary from "./ConfigurationSummary";
 import { germanTexts } from "../utils/germanTexts";
 
@@ -77,6 +78,10 @@ export default function ConfigurationPanel() {
         {/* Color Selection */}
         <div className="divider"></div>
         <ColorPicker />
+
+        {/* Image Upload */}
+        <div className="divider"></div>
+        <ImageUpload />
 
         {/* Configuration Summary */}
         <div className="divider"></div>

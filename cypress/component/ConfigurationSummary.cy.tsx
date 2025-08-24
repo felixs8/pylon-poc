@@ -40,12 +40,19 @@ describe("ConfigurationSummary Component", () => {
       "background-color",
       "rgb(135, 206, 235)"
     );
+
+    // Check image status is displayed (default: no image)
+    cy.get('[data-testid="image-summary-text"]').should(
+      "have.text",
+      "Kein Bild"
+    );
   });
 
   it("updates when configuration changes", () => {
     // Test wrapper to simulate configuration changes
     const TestWrapper = () => {
-      const { setHeight, setMaterial, setColor } = usePylonConfiguration();
+      const { setHeight, setMaterial, setColor, setImage } =
+        usePylonConfiguration();
 
       return (
         <div>
@@ -57,6 +64,12 @@ describe("ConfigurationSummary Component", () => {
           </button>
           <button data-cy="set-color" onClick={() => setColor("#FF5733")}>
             Set Color Red
+          </button>
+          <button
+            data-cy="set-image"
+            onClick={() => setImage({ isUploaded: true, filename: "test.jpg" })}
+          >
+            Set Image
           </button>
           <ConfigurationSummary />
         </div>
@@ -73,6 +86,7 @@ describe("ConfigurationSummary Component", () => {
     cy.contains("3,0m × 1,0m × 0,5m").should("be.visible");
     cy.contains("Kunststoff").should("be.visible");
     cy.contains("#87CEEB").should("be.visible");
+    cy.contains("Kein Bild").should("be.visible");
 
     // Click to change height
     cy.get('[data-cy="set-height"]').click();
@@ -90,5 +104,9 @@ describe("ConfigurationSummary Component", () => {
       "background-color",
       "rgb(255, 87, 51)"
     );
+
+    // Click to set image
+    cy.get('[data-cy="set-image"]').click();
+    cy.contains("Bild hochgeladen").should("be.visible");
   });
 });

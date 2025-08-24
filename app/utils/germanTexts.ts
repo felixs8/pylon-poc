@@ -30,7 +30,7 @@ export const germanTexts = {
   // Color controls
   colorControls: {
     title: "Farbe",
-    label: "Farbe auswählen", 
+    label: "Farbe auswählen",
     current: "Aktuelle Farbe",
     modalTitle: "Farbe auswählen",
     hexLabel: "Hex-Farbwert",
@@ -39,9 +39,23 @@ export const germanTexts = {
     clickToSelect: "Zum Auswählen klicken",
   },
 
+  // Image upload controls
+  imageControls: {
+    title: "Bild",
+    uploadLabel: "Bild hochladen",
+    removeLabel: "Bild entfernen",
+    modalTitle: "Bild positionieren",
+    confirmButton: "OK",
+    cancelButton: "Abbrechen",
+    statusUploaded: "Bild hochgeladen",
+    statusNone: "Kein Bild",
+  },
+
   // Error messages with German decimal formatting
   validation: {
     invalidNumber: "Bitte geben Sie eine gültige Zahl ein",
+    fileTooLarge: "Datei zu groß. Maximum 10MB erlaubt.",
+    invalidFileType: "Nur JPG und PNG Dateien erlaubt.",
     heightRange: (min: number, max: number) =>
       `Wert muss zwischen ${formatGermanNumber(min)}m und ${formatGermanNumber(
         max

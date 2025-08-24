@@ -6,7 +6,7 @@ import { germanTexts } from "../utils/germanTexts";
 
 export default function ConfigurationSummary() {
   const { configuration } = usePylonConfiguration();
-  const { dimensions, material, color } = configuration;
+  const { dimensions, material, color, image } = configuration;
 
   return (
     <div
@@ -32,6 +32,11 @@ export default function ConfigurationSummary() {
         />
         <span data-testid="color-summary-text">{color.toUpperCase()}</span>
       </div>
+      <p data-testid="image-summary-text">
+        {image.isUploaded
+          ? germanTexts.imageControls.statusUploaded
+          : germanTexts.imageControls.statusNone}
+      </p>
     </div>
   );
 }

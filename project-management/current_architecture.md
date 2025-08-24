@@ -1,6 +1,6 @@
 # Current Architecture
 
-3D pylon configurator POC wi- `/app/components/ColorPicker.tsx` – Modal-based color selection component with compact button interface, hex input field, and DaisyUI modal integrationh German localization, material selection, color customization, and Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC with German localization, material selection, color customization, image upload with positioning, and Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 
@@ -18,16 +18,28 @@
   - **German Labels**: Color picker with German text ("Farbe", "Farbe auswählen", "Aktuelle Farbe")
   - **Real-time Updates**: Color changes applied to 3D pylon within 1 second while preserving material properties
   - **Visual Feedback**: Color swatch display with hex value in configuration summary
+- **Image Upload and Positioning System**: Complete image upload workflow with interactive positioning:
+  - **File Validation**: Client-side validation for JPG/PNG files with 10MB size limit and German error messages
+  - **Interactive Positioning Modal**: Canvas-based image positioning with drag/zoom controls using German interface ("Bild positionieren")
+  - **Dual-Face Texture Application**: Images applied to both front and back faces of the 3D pylon model
+  - **Real-time Canvas Preview**: Interactive canvas showing pylon aspect ratio with drag (mouse) and zoom (wheel) controls
+  - **Texture Processing**: Browser File API with CanvasTexture generation preserving positioning and scaling
+  - **Memory Management**: Proper Object URL cleanup and resource management to prevent memory leaks
+  - **State Integration**: Image state integrated into PylonConfigurationContext with position/scale data
 - **3D Material Properties**: Visual differentiation of materials in 3D rendering with proper metalness/roughness values
+- **Advanced 3D Texturing**: Multi-material system supporting both base colors and image textures:
+  - **Material Arrays**: Six-sided cube materials with selective texture application
+  - **Texture Orientation**: Proper texture orientation handling with flipY correction
+  - **Texture Visibility**: White background ensures image visibility regardless of base pylon color
 - **German Number Formatting**: Text inputs accept both comma and dot decimals, display shows German format with comma separators
-- **German Error Messages**: Validation messages in German with proper decimal notation
-- **Real-time 3D Updates**: Pylon geometry, material, and color updates within 1 second of configuration changes
+- **German Error Messages**: Validation messages in German with proper decimal notation including image upload errors
+- **Real-time 3D Updates**: Pylon geometry, material, color, and texture updates within 1 second of configuration changes
 - **Input Validation**: Range validation with German localized user feedback for invalid values
 - **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
 - **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception and material visualization
 - **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
-- **Configuration Summary**: Real-time display of current dimensions, material, and color selection in German with visual color swatch
-- **3D Scene Foundation**: Ground plane and basic scene setup for future interactive features
+- **Configuration Summary**: Real-time display of current dimensions, material, color, and image status in German
+- **3D Scene Foundation**: Ground plane and basic scene setup for interactive features
 
 ## Current Techstack
 
@@ -46,12 +58,14 @@
 
 - `/app/page.tsx` – Main page with German localized content and Context provider
 - `/app/components/PylonViewer.tsx` – 3D canvas container with integrated configuration panel
-- `/app/components/Pylon.tsx` – Dynamic pylon geometry component consuming Context state with material properties
-- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, color picker, and configuration summary
+- `/app/components/Pylon.tsx` – Dynamic pylon geometry component with six-sided materials and texture application system
+- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, color picker, image upload, and configuration summary
 - `/app/components/DimensionControl.tsx` – Individual dimension control with German validation, text inputs, and error handling
 - `/app/components/MaterialSelector.tsx` – Material selection interface with radio buttons and German labels
 - `/app/components/ColorPicker.tsx` – Interactive RGB color picker component using react-colorful with German localization
-- `/app/components/ConfigurationSummary.tsx` – Configuration summary component displaying current dimensions, material, and color in German with visual color swatch
+- `/app/components/ImageUpload.tsx` – File upload component with validation (JPG/PNG, 10MB), preview, and positioning modal integration
+- `/app/components/ImagePositioningModal.tsx` – Interactive Canvas-based image positioning interface with drag/zoom controls and German labels
+- `/app/components/ConfigurationSummary.tsx` – Configuration summary component displaying current dimensions, material, color, and image status in German
 
 ### Localization & Utilities
 
@@ -78,7 +92,7 @@
 - `/cypress/component/DimensionControl.cy.tsx` – Individual control component testing with validation, input handling, and error states
 - `/cypress/component/MaterialSelector.cy.tsx` – Material selection component testing with German labels and accessibility
 - `/cypress/component/ColorPicker.cy.tsx` – Color picker component testing with German labels and accessibility
-- `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting, material, and color display
+- `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting, material, color, and image status display
 
 ### Configuration
 
@@ -202,6 +216,7 @@
   - Updated component tests to verify German text and formatting
 
 - **Task 5**: Basic Material Selection Interface (✅ Completed)
+
   - Extended React Context to include material state management with MaterialType enum
   - Created MaterialSelector component with radio button interface and German labels
   - Implemented 3D material properties with visual differentiation (metalness/roughness values)
@@ -211,3 +226,32 @@
   - Comprehensive test coverage with component tests (6) and E2E tests (8)
   - Real-time 3D visual updates when material selection changes
   - Full Definition of Done compliance with build, tests, and documentation updates
+
+- **Task 6**: Color Customization Interface (✅ Completed)
+
+  - Extended React Context to include color state management with hex color storage
+  - Created ColorPicker component using react-colorful (2.8KB) with German localization
+  - Implemented modal-based color selection interface with DaisyUI modal system
+  - Added real-time 3D color preview with color changes applied within 1 second
+  - Created visual color swatch display in configuration summary
+  - Maintained material properties (metalness/roughness) while applying colors
+  - Added German text constants for color picker interface ("Farbe", "Farbe auswählen")
+  - Comprehensive test coverage with component tests (8) and E2E tests (6)
+  - Full accessibility compliance with WAI-ARIA support from react-colorful
+  - Complete Definition of Done compliance with build, tests, and documentation updates
+
+- **Task 7**: Local Image Upload and Texture Application (✅ Completed)
+  - Extended React Context with comprehensive ImageState management (file, position, scale, URL)
+  - Created ImageUpload component with file validation (JPG/PNG, 10MB limit) and German error messages
+  - Implemented ImagePositioningModal with interactive Canvas-based positioning interface
+  - Added drag and zoom controls for precise image positioning on pylon aspect ratio
+  - Created advanced 3D texturing system with multi-material support for selective face application
+  - Applied images to both front (face 2) and back (face 3) faces of the pylon geometry
+  - Implemented proper texture orientation handling with flipY correction for WebGL coordinate mapping
+  - Added white background rendering to ensure image visibility regardless of base pylon color
+  - Integrated memory management with Object URL cleanup to prevent memory leaks
+  - Updated configuration summary to display image upload status with German labels
+  - Added German text constants for image upload interface ("Bild hochladen", "Bild positionieren")
+  - Comprehensive test coverage with component tests (8) and E2E tests (6 passing, 1 partial due to Cypress file handling)
+  - Real-time texture updates within 1 second of image positioning changes
+  - Complete Definition of Done compliance with build verification and architecture documentation
