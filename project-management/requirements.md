@@ -41,7 +41,7 @@ All users operate on desktop computers with modern browsers and require German-l
 
 #### FR3: Material Selection
 
-- **FR3.1**: User can select from materials: Metal, Plastic, Composite
+- **FR3.1**: User can select from materials: Metal, Plastic, Composite (displayed as "Metall", "Kunststoff", "Verbundwerkstoff" in German interface)
 - **FR3.2**: Material selection affects visual appearance (surface texture/finish) in 3D model
 - **FR3.3**: Material selection affects price calculation
 - **FR3.4**: Current material choice is clearly indicated in UI
