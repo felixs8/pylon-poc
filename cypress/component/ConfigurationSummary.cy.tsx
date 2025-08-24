@@ -1,6 +1,9 @@
 import React from "react";
 import ConfigurationSummary from "../../app/components/ConfigurationSummary";
-import { PylonConfigurationProvider } from "../../app/contexts/PylonConfigurationContext";
+import {
+  PylonConfigurationProvider,
+  usePylonConfiguration,
+} from "../../app/contexts/PylonConfigurationContext";
 
 describe("ConfigurationSummary Component", () => {
   it("renders configuration summary with default values", () => {
@@ -31,22 +34,39 @@ describe("ConfigurationSummary Component", () => {
   });
 
   it("updates when configuration changes", () => {
-    // This test verifies that the component structure exists
-    // Actual integration testing is covered by the E2E tests
+    // Test wrapper to simulate configuration changes
+    const TestWrapper = () => {
+      const { setHeight, setMaterial } = usePylonConfiguration();
+
+      return (
+        <div>
+          <button data-cy="set-height" onClick={() => setHeight(4.5)}>
+            Set Height 4.5
+          </button>
+          <button data-cy="set-material" onClick={() => setMaterial("metal")}>
+            Set Material Metal
+          </button>
+          <ConfigurationSummary />
+        </div>
+      );
+    };
+
     cy.mount(
       <PylonConfigurationProvider>
-        <ConfigurationSummary />
+        <TestWrapper />
       </PylonConfigurationProvider>
     );
 
-    //TODO: implement configuration change simulation
+    // Check initial values
+    cy.contains("3,0m × 1,0m × 0,5m").should("be.visible");
+    cy.contains("Kunststoff").should("be.visible");
 
-    // Verify component structure and default state
-    cy.get('[data-testid="material-summary-text"]').should(
-      "contain.text",
-      "Kunststoff"
-    );
-    cy.get('[data-testid="dimension-summary-text"]').should("exist");
-    cy.get('[data-testid="material-summary-text"]').should("exist");
+    // Click to change height
+    cy.get('[data-cy="set-height"]').click();
+    cy.contains("4,5m × 1,0m × 0,5m").should("be.visible");
+
+    // Click to change material
+    cy.get('[data-cy="set-material"]').click();
+    cy.contains("Metall").should("be.visible");
   });
 });
