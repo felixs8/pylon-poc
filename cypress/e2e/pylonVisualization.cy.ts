@@ -16,8 +16,8 @@ describe("3D Pylon Visualization", () => {
 
     // Check 3D canvas is rendered and visible
     cy.get("canvas").should("exist").and("be.visible");
-    cy.get("canvas").invoke("height").should("be.greaterThan", 500);
-    cy.get("canvas").invoke("width").should("be.greaterThan", 500);
+    cy.get("canvas").invoke("height").should("be.greaterThan", 400);
+    cy.get("canvas").invoke("width").should("be.greaterThan", 400);
   });
 
   it("WebGL context is successfully created", () => {

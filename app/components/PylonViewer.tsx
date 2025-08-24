@@ -26,11 +26,11 @@ export default function PylonViewer() {
   ];
 
   return (
-    <div className="flex gap-6 w-full">
-      {/* 3D Viewer */}
-      <div className="flex-1">
+    <div className="flex gap-6 w-full h-screen">
+      {/* 3D Viewer - 50% width, 75% height */}
+      <div className="w-1/2">
         <div
-          className="w-full h-[600px] border border-base-300 rounded-lg"
+          className="w-full h-3/4 border border-base-300 rounded-lg"
           data-testid="canvas-container"
         >
           <Canvas
@@ -96,8 +96,8 @@ export default function PylonViewer() {
         </div>
       </div>
 
-      {/* Configuration Panel */}
-      <div className="w-80">
+      {/* Configuration Panel - 50% width, auto height */}
+      <div className="w-1/2">
         <ConfigurationPanel />
       </div>
     </div>

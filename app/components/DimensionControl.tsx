@@ -87,21 +87,21 @@ export default function DimensionControl({
   }, [inputValue, value, min, max, onChange]);
   return (
     <div className="form-control space-y-2" data-testid={testId}>
-      <label className="label">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
         <span
-          className="label-text font-medium"
+          className="label-text font-medium mb-1 sm:mb-0"
           data-testid={`${testId}-label`}
         >
           {label}
         </span>
         <span
-          className="label-text-alt text-primary"
+          className="label-text-alt text-primary text-sm"
           data-testid={`${testId}-display`}
         >
           {formatGermanNumber(value)}
           {unit}
         </span>
-      </label>
+      </div>
 
       {/* Range Slider */}
       <input

@@ -59,11 +59,9 @@ describe("ImageUpload Component", () => {
     });
   }
 
-  it("renders image upload component with German title", () => {
+  it("renders image upload component", () => {
     cy.get('[data-testid="image-upload"]').should("exist");
-    cy.get('[data-testid="image-upload-label"]')
-      .should("exist")
-      .and("contain", "Bild");
+    cy.get('[data-testid="image-file-input"]').should("exist");
   });
 
   it("renders file input with correct attributes", () => {

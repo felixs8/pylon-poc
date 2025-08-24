@@ -105,15 +105,6 @@ export default function ImageUpload() {
     <div className="space-y-4" data-testid="image-upload">
       {/* File Input */}
       <div className="form-control">
-        <label className="label">
-          <span
-            className="label-text font-medium"
-            data-testid="image-upload-label"
-          >
-            {germanTexts.imageControls.title}
-          </span>
-        </label>
-
         <input
           ref={fileInputRef}
           type="file"

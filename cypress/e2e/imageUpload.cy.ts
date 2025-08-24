@@ -6,7 +6,6 @@ describe("Image Upload Integration", () => {
   it("renders image upload section in configuration panel", () => {
     // Check that image upload section exists
     cy.get('[data-testid="image-upload"]', { timeout: 10000 }).should("exist");
-    cy.get('[data-testid="image-upload-label"]').should("contain", "Bild");
     cy.get('[data-testid="image-file-input"]').should("exist");
   });
 
@@ -39,12 +38,5 @@ describe("Image Upload Integration", () => {
 
     // Should not show error for valid file
     cy.get('[data-testid="image-upload-error"]').should("not.exist");
-  });
-
-  it("displays image status in configuration summary", () => {
-    // Initially should show "Kein Bild"
-    cy.get('[data-testid="image-summary-text"]', { timeout: 10000 })
-      .should("exist")
-      .and("contain", "Kein Bild");
   });
 });

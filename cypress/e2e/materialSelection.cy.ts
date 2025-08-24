@@ -6,19 +6,11 @@ describe("Material Selection Functionality", () => {
   it("displays material selector in the configuration panel", () => {
     // Check that material selector is present
     cy.get('[data-testid="material-selector"]').should("exist");
-    cy.get('[data-testid="material-selector-label"]').should(
-      "have.text",
-      "Material"
-    );
   });
 
   it("shows plastic as default material selection", () => {
     // Default material should be plastic
     cy.get('[data-testid="material-plastic-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Kunststoff"
-    );
 
     // Summary should show plastic material
     cy.get('[data-testid="material-summary-text"]').should(
@@ -31,10 +23,6 @@ describe("Material Selection Functionality", () => {
     // Change to metal
     cy.get('[data-testid="material-metal-radio"]').click();
     cy.get('[data-testid="material-metal-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
 
     // Summary should update to show metal
     cy.get('[data-testid="material-summary-text"]').should(
@@ -45,10 +33,6 @@ describe("Material Selection Functionality", () => {
     // Change to composite
     cy.get('[data-testid="material-composite-radio"]').click();
     cy.get('[data-testid="material-composite-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Verbundwerkstoff"
-    );
 
     // Summary should update to show composite
     cy.get('[data-testid="material-summary-text"]').should(
@@ -100,10 +84,6 @@ describe("Material Selection Functionality", () => {
   it("maintains material selection when dimensions change", () => {
     // Select a material
     cy.get('[data-testid="material-metal-radio"]').click();
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
 
     // Change dimensions
     cy.get('[data-testid="width-control-slider"]')
@@ -115,10 +95,6 @@ describe("Material Selection Functionality", () => {
 
     // Material selection should persist
     cy.get('[data-testid="material-metal-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
     cy.get('[data-testid="material-summary-text"]').should(
       "contain.text",
       "Metall"
@@ -134,10 +110,6 @@ describe("Material Selection Functionality", () => {
 
     // Final state should be metal
     cy.get('[data-testid="material-metal-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
     cy.get('[data-testid="material-summary-text"]').should(
       "contain.text",
       "Metall"

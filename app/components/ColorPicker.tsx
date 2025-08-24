@@ -76,16 +76,8 @@ export default function ColorPicker() {
 
   return (
     <div className="space-y-4" data-testid="color-picker">
-      <h3 className="text-sm font-medium" data-testid="color-picker-title">
-        {germanTexts.colorControls.title}
-      </h3>
-
       {/* Compact Color Selector */}
       <div className="space-y-3">
-        <label className="text-xs text-base-content/70">
-          {germanTexts.colorControls.label}
-        </label>
-
         <button
           type="button"
           className="flex items-center space-x-3 p-2 rounded-lg border-2 border-base-300 hover:border-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"

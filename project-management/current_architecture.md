@@ -1,10 +1,16 @@
 # Current Architecture
 
-3D pylon configurator POC with German localization, material selection, color customization, image upload with positioning, and Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC with German localization, material selection, color customization, image upload with positioning, optimized layout design, and Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 
 - **German Localization**: Complete German language interface with localized text constants and German decimal formatting
+- **Optimized Configuration Layout**: Three-row flexbox layout design that eliminates vertical scrolling:
+  - **Row 1**: Compact page heading section with reduced padding
+  - **Row 2**: Two-column control layout with "Abmessungen" (dimensions) on left and "Material & Design" on right
+  - **Row 3**: Configuration summary section at bottom with clear visual separation
+  - **Full-Screen Layout**: Page uses full viewport height with 3D canvas and configuration panel simultaneously visible
+  - **Responsive Canvas**: 3D canvas scales to use remaining space after configuration panel sizing
 - **3D Canvas Setup**: React Three Fiber integrated with Next.js for WebGL-based 3D rendering
 - **Dynamic Pylon Configuration**: Real-time pylon dimension adjustment with React Context state management
 - **Interactive Camera Controls**: Full OrbitControls integration with orbit, zoom, and pan functionality
@@ -56,10 +62,10 @@
 
 ### Components
 
-- `/app/page.tsx` – Main page with German localized content and Context provider
-- `/app/components/PylonViewer.tsx` – 3D canvas container with integrated configuration panel
+- `/app/page.tsx` – Main page with German localized content, full-screen layout, and Context provider
+- `/app/components/PylonViewer.tsx` – 3D canvas container with full-height layout and integrated configuration panel
 - `/app/components/Pylon.tsx` – Dynamic pylon geometry component with six-sided materials and texture application system
-- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, color picker, image upload, and configuration summary
+- `/app/components/ConfigurationPanel.tsx` – Three-row flexbox layout with German labels: heading row, two-column controls (dimensions | material/color/image), and configuration summary
 - `/app/components/DimensionControl.tsx` – Individual dimension control with German validation, text inputs, and error handling
 - `/app/components/MaterialSelector.tsx` – Material selection interface with radio buttons and German labels
 - `/app/components/ColorPicker.tsx` – Interactive RGB color picker component using react-colorful with German localization
@@ -241,6 +247,7 @@
   - Complete Definition of Done compliance with build, tests, and documentation updates
 
 - **Task 7**: Local Image Upload and Texture Application (✅ Completed)
+
   - Extended React Context with comprehensive ImageState management (file, position, scale, URL)
   - Created ImageUpload component with file validation (JPG/PNG, 10MB limit) and German error messages
   - Implemented ImagePositioningModal with interactive Canvas-based positioning interface
@@ -255,3 +262,17 @@
   - Comprehensive test coverage with component tests (8) and E2E tests (6 passing, 1 partial due to Cypress file handling)
   - Real-time texture updates within 1 second of image positioning changes
   - Complete Definition of Done compliance with build verification and architecture documentation
+
+- **Task 8**: Configuration Panel Layout Optimization (✅ Completed)
+  - Restructured ConfigurationPanel to three-row flexbox layout eliminating vertical scrolling
+  - Row 1: Compact page heading with reduced padding for space efficiency
+  - Row 2: Two-column control layout with dimensions (left) and material/color/image controls (right)
+  - Row 3: Configuration summary at bottom with clear visual separation using border-top
+  - Converted page layout to full-screen (h-screen) for optimal viewport utilization
+  - Updated PylonViewer to use full-height layout with flexible 3D canvas sizing
+  - Added German text constants for column headers ("Abmessungen", "Material & Design")
+  - Increased configuration panel width from 320px (w-80) to 384px (w-96) for better control spacing
+  - Maintained all existing functionality while reorganizing layout structure
+  - All 57 automated tests continue to pass with new layout (36 component + 21 E2E tests)
+  - Preserves German localization, real-time updates, and accessibility compliance
+  - Complete Definition of Done compliance with build, tests, and documentation updates

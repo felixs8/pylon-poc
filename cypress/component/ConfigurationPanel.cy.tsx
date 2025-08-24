@@ -89,11 +89,7 @@ describe("ConfigurationPanel Component", () => {
       "3,0m × 1,0m × 0,5m"
     );
 
-    // Check material consistency
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Kunststoff"
-    );
+    // Check material consistency - check summary only
     cy.get('[data-testid="material-summary-text"]').should(
       "have.text",
       "Kunststoff"
@@ -102,13 +98,7 @@ describe("ConfigurationPanel Component", () => {
     // Change material and verify updates
     cy.get('[data-testid="material-metal-radio"]').click();
 
-    // Check material display updates
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
-
-    // Check summary updates
+    // Check material summary updates
     cy.get('[data-testid="material-summary-text"]').should(
       "have.text",
       "Metall"
@@ -124,7 +114,7 @@ describe("ConfigurationPanel Component", () => {
 
     // Check that color picker is present
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="color-picker-title"]').should("contain", "Farbe");
+    cy.get('[data-testid="color-picker-button"]').should("exist");
 
     // Check initial color display in summary
     cy.get('[data-testid="color-summary"]').should("exist");

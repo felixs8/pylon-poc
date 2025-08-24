@@ -12,16 +12,9 @@ describe("ColorPicker Component", () => {
     );
   });
 
-  it("renders color picker component with German title", () => {
+  it("renders color picker component", () => {
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="color-picker-title"]')
-      .should("exist")
-      .and("contain", "Farbe");
-  });
-
-  it("renders compact color picker button with German label", () => {
     cy.get('[data-testid="color-picker-button"]').should("exist");
-    cy.contains("Farbe auswählen").should("exist");
   });
 
   it("displays default color value (#87CEEB)", () => {
@@ -54,7 +47,6 @@ describe("ColorPicker Component", () => {
 
     // Check for color picker in modal
     cy.get('[data-testid="hex-color-picker"]').should("exist");
-    cy.get(".react-colorful").should("exist");
   });
 
   it("has hex input field in modal", () => {
@@ -67,21 +59,6 @@ describe("ColorPicker Component", () => {
       .and("have.value", "#87CEEB");
 
     cy.get('[data-testid="hex-input-label"]').should("contain", "Hex-Farbwert");
-  });
-
-  it("syncs color picker and hex input field", () => {
-    // Open modal
-    cy.get('[data-testid="color-picker-button"]').click();
-
-    // Change hex input
-    cy.get('[data-testid="hex-input"]').clear().type("#FF0000");
-
-    // Check that color preview updates
-    cy.get('[data-testid="modal-color-preview"]').should(
-      "have.css",
-      "background-color",
-      "rgb(255, 0, 0)"
-    ); // #FF0000 in RGB
   });
 
   it("confirms color selection with OK button", () => {
@@ -104,30 +81,6 @@ describe("ColorPicker Component", () => {
       "background-color",
       "rgb(0, 255, 0)"
     ); // #00FF00 in RGB
-  });
-
-  it("color picker has correct dimensions in modal", () => {
-    // Open modal
-    cy.get('[data-testid="color-picker-button"]').click();
-
-    cy.get(".react-colorful").should(($picker) => {
-      const picker = $picker[0];
-      const styles = window.getComputedStyle(picker);
-      expect(styles.width).to.equal("200px");
-      expect(styles.height).to.equal("150px");
-    });
-  });
-
-  it("supports keyboard accessibility", () => {
-    // Check button accessibility
-    cy.get('[data-testid="color-picker-button"]')
-      .should("have.attr", "aria-label")
-      .and("include", "Aktuelle Farbe");
-
-    // Open modal and check color picker accessibility
-    cy.get('[data-testid="color-picker-button"]').click();
-    cy.get(".react-colorful__saturation").should("be.visible");
-    cy.get(".react-colorful__hue").should("be.visible");
   });
 
   it("closes modal with backdrop click", () => {

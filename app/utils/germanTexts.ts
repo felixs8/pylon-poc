@@ -17,6 +17,8 @@ export const germanTexts = {
     height: "Höhe",
     width: "Breite",
     depth: "Tiefe",
+    dimensionsHeader: "Abmessungen",
+    designHeader: "Material & Design",
   },
 
   // Material controls
@@ -49,6 +51,11 @@ export const germanTexts = {
     cancelButton: "Abbrechen",
     statusUploaded: "Bild hochgeladen",
     statusNone: "Kein Bild",
+  },
+
+  // Configuration summary
+  summary: {
+    title: "Zusammenfassung",
   },
 
   // Error messages with German decimal formatting

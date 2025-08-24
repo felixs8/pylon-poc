@@ -17,12 +17,6 @@ describe("MaterialSelector Component", () => {
     // Check that the component renders
     cy.get('[data-testid="material-selector"]').should("exist");
 
-    // Check label
-    cy.get('[data-testid="material-selector-label"]').should(
-      "have.text",
-      "Material"
-    );
-
     // Check all three material options are present
     cy.get('[data-testid="material-metal-label"]').should(
       "have.text",
@@ -50,12 +44,6 @@ describe("MaterialSelector Component", () => {
     cy.get('[data-testid="material-plastic-radio"]').should("be.checked");
     cy.get('[data-testid="material-metal-radio"]').should("not.be.checked");
     cy.get('[data-testid="material-composite-radio"]').should("not.be.checked");
-
-    // Check display shows current selection
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Kunststoff"
-    );
   });
 
   it("allows selection of different materials", () => {
@@ -64,26 +52,14 @@ describe("MaterialSelector Component", () => {
     // Select metal
     cy.get('[data-testid="material-metal-radio"]').click();
     cy.get('[data-testid="material-metal-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Metall"
-    );
 
     // Select composite
     cy.get('[data-testid="material-composite-radio"]').click();
     cy.get('[data-testid="material-composite-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Verbundwerkstoff"
-    );
 
     // Select plastic again
     cy.get('[data-testid="material-plastic-radio"]').click();
     cy.get('[data-testid="material-plastic-radio"]').should("be.checked");
-    cy.get('[data-testid="material-selector-display"]').should(
-      "have.text",
-      "Kunststoff"
-    );
   });
 
   it("maintains accessibility with proper labels and focus management", () => {

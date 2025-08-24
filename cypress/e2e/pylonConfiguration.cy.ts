@@ -121,11 +121,9 @@ describe("Dynamic Pylon Configuration E2E", () => {
 
     // Check color picker is present
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="color-picker-title"]').should("contain", "Farbe");
 
     // Test the color picker button
     cy.get('[data-testid="color-picker-button"]').should("exist");
-    cy.contains("Farbe auswählen").should("exist");
 
     // Open the color picker modal
     cy.get('[data-testid="color-picker-button"]').click();

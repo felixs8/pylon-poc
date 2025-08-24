@@ -17,23 +17,6 @@ export default function MaterialSelector() {
 
   return (
     <div className="form-control" data-testid="material-selector">
-      <label className="label">
-        <span
-          className="label-text font-medium"
-          data-testid="material-selector-label"
-        >
-          {germanTexts.materialControls.title}
-        </span>
-        <span
-          className="label-text-alt text-primary"
-          data-testid="material-selector-display"
-        >
-          {material === "metal" && germanTexts.materialControls.metal}
-          {material === "plastic" && germanTexts.materialControls.plastic}
-          {material === "composite" && germanTexts.materialControls.composite}
-        </span>
-      </label>
-
       <div
         className="flex flex-col space-y-2"
         data-testid="material-selector-options"
