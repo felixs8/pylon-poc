@@ -117,10 +117,21 @@ The color picker will integrate with the existing React Context state management
 
 ### UI Component Design
 
-- Consider react-colorful or similar lightweight color picker library for RGB selection
+**Recommended Library: react-colorful** ⭐
+
+- **Selection rationale**: Ultra-lightweight (2.8KB gzipped), zero dependencies, built-in TypeScript support, WAI-ARIA accessibility compliance, and mobile-friendly design
+- **Performance critical**: 13x smaller than react-color (critical for 3D app performance requirements)
+- **Integration advantages**: Clean minimal UI integrates well with DaisyUI, easy German localization, tree-shakeable imports
+- **Installation**: `npm install react-colorful`
+- **Usage**: Import `HexColorPicker` component for RGB hex color selection matching Three.js Material.color expectations
+- **Accessibility**: Built-in keyboard navigation and screen reader support meets AC1 requirements
+
+**Implementation approach**:
+
 - Integrate into existing ConfigurationPanel with proper spacing and layout
 - Follow DaisyUI component styling patterns established in dimension/material controls
 - Ensure responsive design fits existing panel width constraints
+- Use HexColorPicker component for direct hex string output compatible with Three.js
 
 ### German Text Constants
 
