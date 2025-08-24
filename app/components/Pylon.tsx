@@ -7,15 +7,15 @@ import { usePylonConfiguration } from "../hooks/usePylonConfiguration";
 // Material properties for different material types
 const MATERIAL_PROPERTIES = {
   metal: {
-    metalness: 0.8,
-    roughness: 0.2,
+    metalness: 0.5,
+    roughness: 0.0,
   },
   plastic: {
     metalness: 0.0,
     roughness: 0.5,
   },
   composite: {
-    metalness: 0.3,
+    metalness: 0.2,
     roughness: 0.7,
   },
 } as const;

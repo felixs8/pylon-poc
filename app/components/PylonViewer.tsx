@@ -42,12 +42,12 @@ export default function PylonViewer() {
             data-testid="3d-canvas"
           >
             {/* Ambient lighting for general illumination */}
-            <ambientLight intensity={0.4} />
+            <ambientLight intensity={0.8} />
 
             {/* Directional lighting for proper depth perception */}
             <directionalLight
               position={[10, 10, 5]}
-              intensity={1}
+              intensity={1.3}
               castShadow
               shadow-mapSize-width={2048}
               shadow-mapSize-height={2048}
