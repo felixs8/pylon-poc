@@ -72,7 +72,7 @@
 
 #### UI Layer (Next.js + DaisyUI)
 
-- **ConfigurationPanel**: Main container component with form controls
+- **ConfigurationPanel**: Main container component with three-row layout design (heading, two-column controls, summary) optimized to prevent vertical scrolling
 - **DimensionControls**: Sliders and inputs for height, width, depth
 - **ShapeSelector**: Radio buttons for rectangular, round, triangular shapes
 - **MaterialSelector**: Dropdown or buttons for material selection

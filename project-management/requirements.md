@@ -98,6 +98,7 @@ All users operate on desktop computers with modern browsers and require German-l
 - **NFR3.1**: Optimized for desktop monitors (1920x1080 minimum resolution)
 - **NFR3.2**: No mobile or tablet responsive design required for POC
 - **NFR3.3**: Supports standard mouse and keyboard interactions
+- **NFR3.4**: Configuration interface and 3D canvas are simultaneously visible without vertical scrolling on desktop screens
 
 #### NFR4: Localization
 
