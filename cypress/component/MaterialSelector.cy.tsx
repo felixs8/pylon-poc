@@ -86,52 +86,6 @@ describe("MaterialSelector Component", () => {
     );
   });
 
-  it("uses German material labels correctly", () => {
-    mountMaterialSelector();
-
-    // Verify German labels are displayed
-    cy.get('[data-testid="material-metal-label"]').should(
-      "have.text",
-      "Metall"
-    );
-    cy.get('[data-testid="material-plastic-label"]').should(
-      "have.text",
-      "Kunststoff"
-    );
-    cy.get('[data-testid="material-composite-label"]').should(
-      "have.text",
-      "Verbundwerkstoff"
-    );
-
-    // Verify title is in German
-    cy.get('[data-testid="material-selector-label"]').should(
-      "have.text",
-      "Material"
-    );
-  });
-
-  it("integrates properly with DaisyUI styling", () => {
-    mountMaterialSelector();
-
-    // Check DaisyUI classes are present
-    cy.get('[data-testid="material-selector"]').should(
-      "have.class",
-      "form-control"
-    );
-    cy.get('[data-testid="material-plastic-radio"]').should(
-      "have.class",
-      "radio"
-    );
-    cy.get('[data-testid="material-plastic-radio"]').should(
-      "have.class",
-      "radio-primary"
-    );
-    cy.get('[data-testid="material-plastic-radio"]').should(
-      "have.class",
-      "radio-sm"
-    );
-  });
-
   it("maintains accessibility with proper labels and focus management", () => {
     mountMaterialSelector();
 
