@@ -1,6 +1,6 @@
 # Current Architecture
 
-3D pylon configurator POC with German localization, material selection, color customization, and Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC wi- `/app/components/ColorPicker.tsx` – Modal-based color selection component with compact button interface, hex input field, and DaisyUI modal integrationh German localization, material selection, color customization, and Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 

@@ -30,8 +30,13 @@ export const germanTexts = {
   // Color controls
   colorControls: {
     title: "Farbe",
-    label: "Farbe auswählen",
+    label: "Farbe auswählen", 
     current: "Aktuelle Farbe",
+    modalTitle: "Farbe auswählen",
+    hexLabel: "Hex-Farbwert",
+    hexPlaceholder: "#87CEEB",
+    confirmButton: "OK",
+    clickToSelect: "Zum Auswählen klicken",
   },
 
   // Error messages with German decimal formatting

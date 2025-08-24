@@ -121,13 +121,30 @@ describe("Dynamic Pylon Configuration E2E", () => {
 
     // Check color picker is present
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="hex-color-picker"]').should("exist");
-
-    // Verify color picker has German labels
     cy.get('[data-testid="color-picker-title"]').should("contain", "Farbe");
-    cy.get('[data-testid="color-picker-label"]').should(
-      "contain",
-      "Farbe auswählen"
+
+    // Test the color picker button
+    cy.get('[data-testid="color-picker-button"]').should("exist");
+    cy.contains("Farbe auswählen").should("exist");
+
+    // Open the color picker modal
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Check modal is visible with correct components
+    cy.get('[data-testid="color-picker-modal"]').should("be.visible");
+    cy.get('[data-testid="hex-color-picker"]').should("exist");
+    cy.get('[data-testid="hex-input"]').should("exist");
+
+    // Test color change through hex input
+    cy.get('[data-testid="hex-input"]').clear().type("#FF0000");
+    cy.get('[data-testid="confirm-button"]').click();
+
+    // Verify color updated in summary
+    cy.get('[data-testid="color-summary-text"]').should("contain", "#FF0000");
+    cy.get('[data-testid="color-summary-swatch"]').should(
+      "have.css",
+      "background-color",
+      "rgb(255, 0, 0)"
     );
   });
 

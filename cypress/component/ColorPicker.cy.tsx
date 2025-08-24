@@ -19,15 +19,9 @@ describe("ColorPicker Component", () => {
       .and("contain", "Farbe");
   });
 
-  it("renders German labels and interface text", () => {
-    cy.get('[data-testid="color-picker-label"]')
-      .should("exist")
-      .and("contain", "Farbe auswählen");
-
-    cy.get('[data-testid="current-color-display"]')
-      .should("exist")
-      .find("div")
-      .should("contain", "Aktuelle Farbe");
+  it("renders compact color picker button with German label", () => {
+    cy.get('[data-testid="color-picker-button"]').should("exist");
+    cy.contains("Farbe auswählen").should("exist");
   });
 
   it("displays default color value (#87CEEB)", () => {
@@ -42,30 +36,109 @@ describe("ColorPicker Component", () => {
       .and("have.css", "background-color", "rgb(135, 206, 235)"); // #87CEEB in RGB
   });
 
-  it("renders HexColorPicker component", () => {
+  it("opens modal when color button is clicked", () => {
+    // Modal should not be visible initially
+    cy.get('[data-testid="color-picker-modal"]').should("not.be.visible");
+
+    // Click the color button
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Modal should now be visible
+    cy.get('[data-testid="color-picker-modal"]').should("be.visible");
+    cy.get('[data-testid="modal-title"]').should("contain", "Farbe auswählen");
+  });
+
+  it("renders HexColorPicker component in modal", () => {
+    // Open modal first
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Check for color picker in modal
     cy.get('[data-testid="hex-color-picker"]').should("exist");
     cy.get(".react-colorful").should("exist");
   });
 
-  it("has proper styling and layout structure", () => {
-    cy.get('[data-testid="color-picker"]').should("have.class", "space-y-4");
-    cy.get('[data-testid="current-color-display"]').should(
-      "have.class",
-      "flex"
-    );
+  it("has hex input field in modal", () => {
+    // Open modal
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Check hex input field
+    cy.get('[data-testid="hex-input"]')
+      .should("exist")
+      .and("have.value", "#87CEEB");
+
+    cy.get('[data-testid="hex-input-label"]').should("contain", "Hex-Farbwert");
   });
 
-  it("color picker has correct dimensions", () => {
+  it("syncs color picker and hex input field", () => {
+    // Open modal
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Change hex input
+    cy.get('[data-testid="hex-input"]').clear().type("#FF0000");
+
+    // Check that color preview updates
+    cy.get('[data-testid="modal-color-preview"]').should(
+      "have.css",
+      "background-color",
+      "rgb(255, 0, 0)"
+    ); // #FF0000 in RGB
+  });
+
+  it("confirms color selection with OK button", () => {
+    // Open modal
+    cy.get('[data-testid="color-picker-button"]').click();
+
+    // Change color
+    cy.get('[data-testid="hex-input"]').clear().type("#00FF00");
+
+    // Click OK
+    cy.get('[data-testid="confirm-button"]').click();
+
+    // Modal should close
+    cy.get('[data-testid="color-picker-modal"]').should("not.be.visible");
+
+    // Color should be updated in main view
+    cy.get('[data-testid="color-value"]').should("contain", "#00FF00");
+    cy.get('[data-testid="color-swatch"]').should(
+      "have.css",
+      "background-color",
+      "rgb(0, 255, 0)"
+    ); // #00FF00 in RGB
+  });
+
+  it("color picker has correct dimensions in modal", () => {
+    // Open modal
+    cy.get('[data-testid="color-picker-button"]').click();
+
     cy.get(".react-colorful").should(($picker) => {
       const picker = $picker[0];
       const styles = window.getComputedStyle(picker);
       expect(styles.width).to.equal("200px");
-      expect(styles.height).to.equal("200px");
+      expect(styles.height).to.equal("150px");
     });
   });
 
   it("supports keyboard accessibility", () => {
+    // Check button accessibility
+    cy.get('[data-testid="color-picker-button"]')
+      .should("have.attr", "aria-label")
+      .and("include", "Aktuelle Farbe");
+
+    // Open modal and check color picker accessibility
+    cy.get('[data-testid="color-picker-button"]').click();
     cy.get(".react-colorful__saturation").should("be.visible");
     cy.get(".react-colorful__hue").should("be.visible");
+  });
+
+  it("closes modal with backdrop click", () => {
+    // Open modal
+    cy.get('[data-testid="color-picker-button"]').click();
+    cy.get('[data-testid="color-picker-modal"]').should("be.visible");
+
+    // Click backdrop
+    cy.get(".modal-backdrop").click({ force: true });
+
+    // Modal should close
+    cy.get('[data-testid="color-picker-modal"]').should("not.be.visible");
   });
 });
