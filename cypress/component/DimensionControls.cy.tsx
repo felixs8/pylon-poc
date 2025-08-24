@@ -1,18 +1,18 @@
-import DimensionControls from "../../app/components/DimensionControls";
+import ConfigurationPanel from "../../app/components/ConfigurationPanel";
 import { PylonConfigurationProvider } from "../../app/contexts/PylonConfigurationContext";
 
-describe("DimensionControls Component", () => {
+describe("ConfigurationPanel Component (Legacy DimensionControls)", () => {
   it("renders with all dimension controls", () => {
     cy.mount(
       <PylonConfigurationProvider>
-        <DimensionControls />
+        <ConfigurationPanel />
       </PylonConfigurationProvider>
     );
 
     // Check that the main component renders with German title
-    cy.get('[data-testid="dimension-controls-title"]').should(
+    cy.get('[data-testid="configuration-panel-title"]').should(
       "have.text",
-      "Pylon Abmessungen"
+      "Pylon-Konfiguration"
     );
 
     // Check that all three control types are present
@@ -21,7 +21,7 @@ describe("DimensionControls Component", () => {
     cy.get('[data-testid="depth-control"]').should("exist");
 
     // Check summary section with German formatting (comma decimal)
-    cy.get('[data-testid="dimension-summary"]').should("exist");
+    cy.get('[data-testid="configuration-summary"]').should("exist");
     cy.get('[data-testid="dimension-summary-text"]').should(
       "have.text",
       "3,0m × 1,0m × 0,5m"
@@ -31,7 +31,7 @@ describe("DimensionControls Component", () => {
   it("updates summary when dimensions change", () => {
     cy.mount(
       <PylonConfigurationProvider>
-        <DimensionControls />
+        <ConfigurationPanel />
       </PylonConfigurationProvider>
     );
 

@@ -13,10 +13,18 @@ export const germanTexts = {
 
   // Dimension controls
   dimensionControls: {
-    title: "Pylon Abmessungen",
+    title: "Pylon-Konfiguration",
     height: "Höhe",
     width: "Breite",
     depth: "Tiefe",
+  },
+
+  // Material controls
+  materialControls: {
+    title: "Material",
+    metal: "Metall",
+    plastic: "Kunststoff",
+    composite: "Verbundwerkstoff",
   },
 
   // Error messages with German decimal formatting

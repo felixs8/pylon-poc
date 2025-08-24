@@ -3,7 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Pylon from "./Pylon";
-import DimensionControls from "./DimensionControls";
+import ConfigurationPanel from "./ConfigurationPanel";
 import { usePylonConfiguration } from "../hooks/usePylonConfiguration";
 
 export default function PylonViewer() {
@@ -98,7 +98,7 @@ export default function PylonViewer() {
 
       {/* Configuration Panel */}
       <div className="w-80">
-        <DimensionControls />
+        <ConfigurationPanel />
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 # Current Architecture
 
-3D pylon configurator POC with German localization and basic Three.js visualization capabilities for advertising pylons.
+3D pylon configurator POC with German localization, material selection, and basic Three.js visualization capabilities for advertising pylons.
 
 ## Implemented Features
 
@@ -9,13 +9,19 @@
 - **Dynamic Pylon Configuration**: Real-time pylon dimension adjustment with React Context state management
 - **Interactive Camera Controls**: Full OrbitControls integration with orbit, zoom, and pan functionality
 - **Dimension Controls**: Sliders and numeric inputs for height (1.0-8.0m), width (0.3-3.0m), depth (0.1-1.0m)
+- **Material Selection Interface**: Radio button interface for three material types with German labels:
+  - **Metall** (Metal): High metalness (0.8), low roughness (0.2) for shiny metallic appearance
+  - **Kunststoff** (Plastic): Low metalness (0.1), medium roughness (0.8) for matte plastic finish
+  - **Verbundwerkstoff** (Composite): Balanced properties (metalness 0.4, roughness 0.6) for composite material look
+- **3D Material Properties**: Visual differentiation of materials in 3D rendering with proper metalness/roughness values
 - **German Number Formatting**: Text inputs accept both comma and dot decimals, display shows German format with comma separators
 - **German Error Messages**: Validation messages in German with proper decimal notation
-- **Real-time 3D Updates**: Pylon geometry updates within 1 second of dimension changes
+- **Real-time 3D Updates**: Pylon geometry and material updates within 1 second of configuration changes
 - **Input Validation**: Range validation with German localized user feedback for invalid values
 - **Dynamic Camera Targeting**: Camera focus automatically adjusts to pylon center as dimensions change
-- **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception
+- **Basic Scene Lighting**: Ambient and directional lighting for proper depth perception and material visualization
 - **Smooth Camera Interactions**: Damped controls with distance limits (2-20 units) and polar angle restrictions
+- **Configuration Summary**: Real-time display of current dimensions and material selection in German
 - **3D Scene Foundation**: Ground plane and basic scene setup for future interactive features
 
 ## Current Techstack
@@ -33,33 +39,39 @@
 ### Components
 
 - `/app/page.tsx` – Main page with German localized content and Context provider
-- `/app/components/PylonViewer.tsx` – 3D canvas container with integrated dimension controls
-- `/app/components/Pylon.tsx` – Dynamic pylon geometry component consuming Context state
-- `/app/components/DimensionControls.tsx` – UI controls container with German labels and formatting
+- `/app/components/PylonViewer.tsx` – 3D canvas container with integrated configuration panel
+- `/app/components/Pylon.tsx` – Dynamic pylon geometry component consuming Context state with material properties
+- `/app/components/ConfigurationPanel.tsx` – UI controls container with German labels, formatting, material selector, and configuration summary
 - `/app/components/DimensionControl.tsx` – Individual dimension control with German validation, text inputs, and error handling
+- `/app/components/MaterialSelector.tsx` – Material selection interface with radio buttons and German labels
+- `/app/components/ConfigurationSummary.tsx` – Configuration summary component displaying current dimensions and material in German
 
 ### Localization & Utilities
 
-- `/app/utils/germanTexts.ts` – Centralized German text constants for all UI strings and error messages
+- `/app/utils/germanTexts.ts` – Centralized German text constants including material labels for all UI strings and error messages
 - `/app/utils/formatting.ts` – German number formatting utilities supporting both comma and dot input parsing
 
 ### Context & State Management
 
-- `/app/contexts/PylonConfigurationContext.tsx` – React Context for global pylon configuration state
-- `/app/hooks/usePylonConfiguration.ts` – Custom hook for accessing configuration Context
+- `/app/contexts/PylonConfigurationContext.tsx` – React Context for global pylon configuration state including material selection
+- `/app/hooks/usePylonConfiguration.ts` – Custom hook for accessing configuration Context with MaterialType exports
 
 ### E2E Tests
 
 - `/cypress/e2e/pylonVisualization.cy.ts` – Comprehensive 3D visualization testing (AC1-AC5)
 - `/cypress/e2e/pylonConfiguration.cy.ts` – Dynamic configuration testing with validation and UI interaction
+- `/cypress/e2e/materialSelection.cy.ts` – Material selection functionality testing with 3D integration
 
 ### Component Tests
 
 - `/cypress/component/Home.cy.tsx` – Home component test
 - `/cypress/component/PylonViewer.cy.tsx` – 3D component rendering and WebGL context tests
-- `/cypress/component/PylonViewerWithControls.cy.tsx` – Integrated 3D viewer with dimension controls
-- `/cypress/component/DimensionControls.cy.tsx` – Configuration UI integration testing focusing on component interaction
+- `/cypress/component/PylonViewerWithControls.cy.tsx` – Integrated 3D viewer with configuration panel
+- `/cypress/component/ConfigurationPanel.cy.tsx` – Configuration UI integration testing with component composition verification
 - `/cypress/component/DimensionControl.cy.tsx` – Individual control component testing with validation, input handling, and error states
+- `/cypress/component/MaterialSelector.cy.tsx` – Material selection component testing with German labels and accessibility
+- `/cypress/component/ConfigurationSummary.cy.tsx` – Configuration summary component testing with German formatting and material display
+- `/cypress/component/DimensionControls.cy.tsx` – Legacy test file (renamed component) maintaining compatibility
 
 ### Configuration
 
@@ -94,10 +106,14 @@
 ### Pylon Specifications
 
 - **Geometry**: BoxGeometry with dynamic dimensions (height: 1.0-8.0m, width: 0.3-3.0m, depth: 0.1-1.0m)
-- **Real-time Updates**: Geometry recalculates automatically when Context state changes
-- **Material**: MeshStandardMaterial with light blue color (#87CEEB)
+- **Real-time Updates**: Geometry and material recalculate automatically when Context state changes
+- **Material Properties**: Dynamic material system with visual differentiation:
+  - **Metal**: High metalness (0.8), low roughness (0.2) for shiny metallic appearance
+  - **Plastic**: Low metalness (0.1), medium roughness (0.8) for matte plastic finish
+  - **Composite**: Balanced metalness (0.4), medium roughness (0.6) for composite material look
+- **Base Material**: MeshStandardMaterial with light blue color (#87CEEB) and material property overrides
 - **Position**: Positioned at [0, height/2 - 0.1, 0] to sit properly on ground plane at y = -0.1
-- **Rendering**: Casts and receives shadows for realistic appearance
+- **Rendering**: Casts and receives shadows for realistic material appearance
 
 ### Performance
 
@@ -107,10 +123,10 @@
 
 ## Testing Coverage
 
-### Automated Tests (18 total)
+### Automated Tests (33 total)
 
-- **Component Tests (9)**: DimensionControl (4), DimensionControls (2), Home (1), PylonViewer (1), PylonViewerWithControls (1)
-- **E2E Tests (9)**: Configuration testing (6), 3D visualization (3) with data-testid precision targeting
+- **Component Tests (27)**: ConfigurationPanel (6), ConfigurationSummary (6), DimensionControl (4), DimensionControls (2), MaterialSelector (6), Home (1), PylonViewer (1), PylonViewerWithControls (1)
+- **E2E Tests (15)**: Configuration testing (5), 3D visualization (3), material selection (7) with data-testid precision targeting
 
 ### Data-Testid Testing Strategy
 
@@ -123,6 +139,11 @@
 
 - Lighting quality assessment
 - Performance validation under different hardware conditions
+- **3D Material Visual Verification**: Material property differentiation requires manual verification:
+  - Metal materials should appear shiny and reflective
+  - Plastic materials should appear matte with minimal reflection
+  - Composite materials should show balanced reflection properties
+  - Material changes should be visually distinct and update immediately
 - **OrbitControls functionality**: Camera controls cannot be automatically tested with Cypress because WebGL canvas content is not accessible to DOM testing tools. Manual verification required for:
   - Left-click orbit functionality around pylon
   - Mouse wheel zoom with proper distance limits (2-20 units)
@@ -163,6 +184,7 @@
   - Comprehensive test coverage for UI components and validation logic
 
 - **Task 4**: German Localization for Interface Labels (✅ Completed)
+
   - Converted all UI text elements to German language
   - Created centralized German text constants file (`/app/utils/germanTexts.ts`)
   - Implemented German number formatting utilities (`/app/utils/formatting.ts`)
@@ -171,3 +193,14 @@
   - Updated text inputs to accept both comma and dot decimal formats
   - Maintained all existing functionality while adding localization
   - Updated component tests to verify German text and formatting
+
+- **Task 5**: Basic Material Selection Interface (✅ Completed)
+  - Extended React Context to include material state management with MaterialType enum
+  - Created MaterialSelector component with radio button interface and German labels
+  - Implemented 3D material properties with visual differentiation (metalness/roughness values)
+  - Integrated material selection into DimensionControls panel with proper layout
+  - Added German text constants for all three materials (Metall, Kunststoff, Verbundwerkstoff)
+  - Updated configuration summary to display current material selection
+  - Comprehensive test coverage with component tests (6) and E2E tests (8)
+  - Real-time 3D visual updates when material selection changes
+  - Full Definition of Done compliance with build, tests, and documentation updates

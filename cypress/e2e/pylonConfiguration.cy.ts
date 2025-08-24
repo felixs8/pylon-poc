@@ -18,9 +18,9 @@ describe("Dynamic Pylon Configuration E2E", () => {
     cy.get("canvas").should("exist").should("be.visible");
 
     // Check that dimension controls are present using data-testids - German localized
-    cy.get('[data-testid="dimension-controls-title"]').should(
+    cy.get('[data-testid="configuration-panel-title"]').should(
       "have.text",
-      "Pylon Abmessungen"
+      "Pylon-Konfiguration"
     );
     cy.get('[data-testid="height-control"]').should("exist");
     cy.get('[data-testid="width-control"]').should("exist");

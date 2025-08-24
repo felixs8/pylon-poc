@@ -6,9 +6,11 @@ import {
   DIMENSION_LIMITS,
 } from "../hooks/usePylonConfiguration";
 import DimensionControl from "./DimensionControl";
+import MaterialSelector from "./MaterialSelector";
+import ConfigurationSummary from "./ConfigurationSummary";
 import { germanTexts } from "../utils/germanTexts";
 
-export default function DimensionControls() {
+export default function ConfigurationPanel() {
   const { configuration, setHeight, setWidth, setDepth } =
     usePylonConfiguration();
   const { dimensions } = configuration;
@@ -16,12 +18,12 @@ export default function DimensionControls() {
   return (
     <div
       className="card bg-base-100 shadow-lg"
-      data-testid="dimension-controls"
+      data-testid="configuration-panel"
     >
       <div className="card-body">
         <h2
           className="card-title text-lg mb-4"
-          data-testid="dimension-controls-title"
+          data-testid="configuration-panel-title"
         >
           {germanTexts.dimensionControls.title}
         </h2>
@@ -67,19 +69,13 @@ export default function DimensionControls() {
           />
         </div>
 
-        {/* Summary */}
+        {/* Material Selection */}
         <div className="divider"></div>
-        <div
-          className="text-sm text-base-content/70"
-          data-testid="dimension-summary"
-        >
-          <p className="font-medium">Aktuelle Größe:</p>
-          <p data-testid="dimension-summary-text">
-            {dimensions.height.toFixed(1).replace(".", ",")}m ×{" "}
-            {dimensions.width.toFixed(1).replace(".", ",")}m ×{" "}
-            {dimensions.depth.toFixed(1).replace(".", ",")}m
-          </p>
-        </div>
+        <MaterialSelector />
+
+        {/* Configuration Summary */}
+        <div className="divider"></div>
+        <ConfigurationSummary />
       </div>
     </div>
   );
