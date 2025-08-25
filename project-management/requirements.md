@@ -78,6 +78,16 @@ All users operate on desktop computers with modern browsers and require German-l
 - **FR7.4**: User can remove uploaded image to return to base material appearance
 - **FR7.5**: System shows upload progress and success/error feedback
 
+#### FR8: Mobile Responsive Layout
+
+- **FR8.1**: Interface adapts to mobile viewport sizes (320px-768px width) with single-column layout
+- **FR8.2**: On small screens (xs-s: 320px-639px), all components stack vertically: 3D canvas, headline, each configuration control, summary
+- **FR8.3**: On medium screens (m: 640px-1023px), configuration controls use two-column layout while canvas remains above controls
+- **FR8.4**: On large screens (l+: 1024px+), current desktop layout with side-by-side canvas and configuration panel is maintained
+- **FR8.5**: Touch interactions work properly on mobile devices for 3D navigation and form controls
+- **FR8.6**: All text remains readable and controls remain usable on mobile screen sizes
+- **FR8.7**: German text content and formatting is preserved across all responsive breakpoints
+
 ### Non-functional Requirements
 
 #### NFR1: Performance
@@ -96,8 +106,9 @@ All users operate on desktop computers with modern browsers and require German-l
 #### NFR3: Device Support
 
 - **NFR3.1**: Optimized for desktop monitors (1920x1080 minimum resolution)
-- **NFR3.2**: No mobile or tablet responsive design required for POC
-- **NFR3.3**: Supports standard mouse and keyboard interactions
+- **NFR3.2**: Responsive design supports mobile devices (320px minimum width) and tablets
+- **NFR3.3**: Supports standard mouse/keyboard interactions on desktop and touch interactions on mobile
+- **NFR3.4**: WebGL 3D rendering works on mobile browsers that support WebGL 2.0
 - **NFR3.4**: Configuration interface and 3D canvas are simultaneously visible without vertical scrolling on desktop screens
 
 #### NFR4: Localization
@@ -124,7 +135,6 @@ The following features are explicitly excluded from the proof of concept:
 - **Advanced Image Editing**: Image cropping, rotation, or effects within the configurator
 - **Export Functionality**: Generating technical drawings, specifications, or quotes
 - **Order Processing**: Shopping cart, checkout, or order management
-- **Mobile Optimization**: Responsive design for smartphones/tablets
 
 ### Success Criteria
 
