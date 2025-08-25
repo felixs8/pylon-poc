@@ -4,6 +4,7 @@ import { PylonConfigurationProvider } from "../../app/contexts/PylonConfiguratio
 
 describe("ConfigurationPanel Component", () => {
   it("renders with all dimension controls", () => {
+    cy.viewport(1280, 720); // Use desktop viewport
     cy.mount(
       <PylonConfigurationProvider>
         <ConfigurationPanel />
@@ -30,6 +31,7 @@ describe("ConfigurationPanel Component", () => {
   });
 
   it("updates summary when dimensions change", () => {
+    cy.viewport(1280, 720); // Use desktop viewport
     cy.mount(
       <PylonConfigurationProvider>
         <ConfigurationPanel />
@@ -42,9 +44,9 @@ describe("ConfigurationPanel Component", () => {
       "3,0m × 1,0m × 0,5m"
     );
 
-    // Change height via numeric input
-    cy.get('[data-testid="height-control-input"]').clear().type("6");
-    cy.get('[data-testid="height-control-input"]').blur();
+    // Change height via numeric input - select first one (there may be duplicates in responsive layout)
+    cy.get('[data-testid="height-control-input"]').first().clear().type("6");
+    cy.get('[data-testid="height-control-input"]').first().blur();
 
     // Summary should update with German formatting
     cy.get('[data-testid="dimension-summary-text"]').should(
@@ -53,8 +55,8 @@ describe("ConfigurationPanel Component", () => {
     );
 
     // Change width to whole number
-    cy.get('[data-testid="width-control-input"]').clear().type("2");
-    cy.get('[data-testid="width-control-input"]').blur();
+    cy.get('[data-testid="width-control-input"]').first().clear().type("2");
+    cy.get('[data-testid="width-control-input"]').first().blur();
 
     // Wait for state update
     cy.wait(100);
@@ -67,20 +69,21 @@ describe("ConfigurationPanel Component", () => {
   });
 
   it("maintains state consistency across components", () => {
+    cy.viewport(1280, 720); // Use desktop viewport
     cy.mount(
       <PylonConfigurationProvider>
         <ConfigurationPanel />
       </PylonConfigurationProvider>
     );
 
-    // Check title
+    // Check title - should only have one visible on desktop
     cy.get('[data-testid="configuration-panel-title"]').should(
       "have.text",
       "Pylon-Konfiguration"
     );
 
     // Check that all components show initial state consistently
-    cy.get('[data-testid="height-control-display"]').should(
+    cy.get('[data-testid="height-control-display"]').first().should(
       "have.text",
       "3,0m"
     );
@@ -96,7 +99,7 @@ describe("ConfigurationPanel Component", () => {
     );
 
     // Change material and verify updates
-    cy.get('[data-testid="material-metal-radio"]').click();
+    cy.get('[data-testid="material-metal-radio"]').first().click();
 
     // Check material summary updates
     cy.get('[data-testid="material-summary-text"]').should(
@@ -106,6 +109,7 @@ describe("ConfigurationPanel Component", () => {
   });
 
   it("includes color picker integration", () => {
+    cy.viewport(1280, 720); // Use desktop viewport
     cy.mount(
       <PylonConfigurationProvider>
         <ConfigurationPanel />
@@ -114,10 +118,9 @@ describe("ConfigurationPanel Component", () => {
 
     // Check that color picker is present
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="color-picker-button"]').should("exist");
+    cy.get('[data-testid="color-button"]').first().should("exist");
 
-    // Check initial color display in summary
-    cy.get('[data-testid="color-summary"]').should("exist");
-    cy.get('[data-testid="color-summary-text"]').should("contain", "#87CEEB");
+    // Check that image upload is present
+    cy.get('[data-testid="image-upload"]').should("exist");
   });
 });

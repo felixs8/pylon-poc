@@ -26,79 +26,236 @@ export default function PylonViewer() {
   ];
 
   return (
-    <div className="flex gap-6 w-full h-screen">
-      {/* 3D Viewer - 50% width, 75% height */}
-      <div className="w-1/2">
-        <div
-          className="w-full h-3/4 border border-base-300 rounded-lg"
-          data-testid="canvas-container"
-        >
-          <Canvas
-            camera={{
-              position: cameraPosition,
-              fov: 50,
-            }}
-            shadows
-            data-testid="3d-canvas"
+    <div className="w-full h-full">
+      {/* Mobile Layout (xs-s: < 640px): Single column stack */}
+      <div className="flex flex-col gap-4 sm:hidden">
+        {/* 3D Canvas - Mobile */}
+        <div className="w-full">
+          <div
+            className="w-full h-64 border border-base-300 rounded-lg"
+            data-testid="canvas-container"
           >
-            {/* Ambient lighting for general illumination */}
-            <ambientLight intensity={0.8} />
-
-            {/* Directional lighting for proper depth perception */}
-            <directionalLight
-              position={[10, 10, 5]}
-              intensity={1.3}
-              castShadow
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-              shadow-camera-far={50}
-              shadow-camera-left={-10}
-              shadow-camera-right={10}
-              shadow-camera-top={10}
-              shadow-camera-bottom={-10}
-            />
-
-            {/* Interactive Camera Controls with dynamic target */}
-            <OrbitControls
-              target={cameraTarget}
-              minDistance={Math.max(2, maxDimension * 0.5)} // Minimum distance scales with pylon size
-              maxDistance={Math.max(20, maxDimension * 3)} // Maximum distance scales with pylon size
-              minPolarAngle={Math.PI / 6} // Prevent camera going below ground (30 degrees from top)
-              maxPolarAngle={Math.PI / 2} // Prevent camera flipping upside down (90 degrees from top)
-              enablePan={true} // Enable right-click pan
-              enableZoom={true} // Enable mouse wheel zoom
-              enableRotate={true} // Enable left-click orbit
-              enableDamping={true} // Smooth camera movement
-              dampingFactor={0.05} // Damping intensity for smooth motion
-              panSpeed={1} // Pan sensitivity
-              rotateSpeed={1} // Rotation sensitivity
-              zoomSpeed={1} // Zoom sensitivity
-              mouseButtons={{
-                LEFT: 0, // Left button for orbit
-                MIDDLE: 1, // Middle button for zoom (if available)
-                RIGHT: 2, // Right button for pan
+            <Canvas
+              camera={{
+                position: cameraPosition,
+                fov: 50,
               }}
-            />
-
-            {/* Dynamic Pylon */}
-            <Pylon />
-
-            {/* Ground plane for depth perception */}
-            <mesh
-              rotation={[-Math.PI / 2, 0, 0]}
-              position={[0, -0.1, 0]}
-              receiveShadow
+              shadows
+              data-testid="3d-canvas"
             >
-              <planeGeometry args={[20, 20]} />
-              <meshStandardMaterial color="#f0f0f0" />
-            </mesh>
-          </Canvas>
+              {/* Ambient lighting for general illumination */}
+              <ambientLight intensity={0.8} />
+
+              {/* Directional lighting for proper depth perception */}
+              <directionalLight
+                position={[10, 10, 5]}
+                intensity={1.3}
+                castShadow
+                shadow-mapSize-width={2048}
+                shadow-mapSize-height={2048}
+                shadow-camera-far={50}
+                shadow-camera-left={-10}
+                shadow-camera-right={10}
+                shadow-camera-top={10}
+                shadow-camera-bottom={-10}
+              />
+
+              {/* Interactive Camera Controls with dynamic target */}
+              <OrbitControls
+                target={cameraTarget}
+                minDistance={Math.max(2, maxDimension * 0.5)}
+                maxDistance={Math.max(20, maxDimension * 3)}
+                minPolarAngle={Math.PI / 6}
+                maxPolarAngle={Math.PI / 2}
+                enablePan={true}
+                enableZoom={true}
+                enableRotate={true}
+                enableDamping={true}
+                dampingFactor={0.05}
+                panSpeed={1}
+                rotateSpeed={1}
+                zoomSpeed={1}
+                mouseButtons={{
+                  LEFT: 0,
+                  MIDDLE: 1,
+                  RIGHT: 2,
+                }}
+              />
+
+              {/* Dynamic Pylon */}
+              <Pylon />
+
+              {/* Ground plane for depth perception */}
+              <mesh
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, -0.1, 0]}
+                receiveShadow
+              >
+                <planeGeometry args={[20, 20]} />
+                <meshStandardMaterial color="#f0f0f0" />
+              </mesh>
+            </Canvas>
+          </div>
+        </div>
+
+        {/* Configuration Panel - Mobile */}
+        <div className="w-full">
+          <ConfigurationPanel />
         </div>
       </div>
 
-      {/* Configuration Panel - 50% width, auto height */}
-      <div className="w-1/2">
-        <ConfigurationPanel />
+      {/* Tablet Layout (sm-lg: 640px-1023px): Canvas above, config below */}
+      <div className="hidden sm:flex lg:hidden flex-col gap-4 h-full">
+        {/* 3D Canvas - Tablet */}
+        <div className="w-full flex-1">
+          <div
+            className="w-full h-full border border-base-300 rounded-lg"
+            data-testid="canvas-container"
+          >
+            <Canvas
+              camera={{
+                position: cameraPosition,
+                fov: 50,
+              }}
+              shadows
+              data-testid="3d-canvas"
+            >
+              {/* Ambient lighting for general illumination */}
+              <ambientLight intensity={0.8} />
+
+              {/* Directional lighting for proper depth perception */}
+              <directionalLight
+                position={[10, 10, 5]}
+                intensity={1.3}
+                castShadow
+                shadow-mapSize-width={2048}
+                shadow-mapSize-height={2048}
+                shadow-camera-far={50}
+                shadow-camera-left={-10}
+                shadow-camera-right={10}
+                shadow-camera-top={10}
+                shadow-camera-bottom={-10}
+              />
+
+              {/* Interactive Camera Controls with dynamic target */}
+              <OrbitControls
+                target={cameraTarget}
+                minDistance={Math.max(2, maxDimension * 0.5)}
+                maxDistance={Math.max(20, maxDimension * 3)}
+                minPolarAngle={Math.PI / 6}
+                maxPolarAngle={Math.PI / 2}
+                enablePan={true}
+                enableZoom={true}
+                enableRotate={true}
+                enableDamping={true}
+                dampingFactor={0.05}
+                panSpeed={1}
+                rotateSpeed={1}
+                zoomSpeed={1}
+                mouseButtons={{
+                  LEFT: 0,
+                  MIDDLE: 1,
+                  RIGHT: 2,
+                }}
+              />
+
+              {/* Dynamic Pylon */}
+              <Pylon />
+
+              {/* Ground plane for depth perception */}
+              <mesh
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, -0.1, 0]}
+                receiveShadow
+              >
+                <planeGeometry args={[20, 20]} />
+                <meshStandardMaterial color="#f0f0f0" />
+              </mesh>
+            </Canvas>
+          </div>
+        </div>
+
+        {/* Configuration Panel - Tablet */}
+        <div className="w-full flex-shrink-0">
+          <ConfigurationPanel />
+        </div>
+      </div>
+
+      {/* Desktop Layout (lg+: 1024px+): Side by side - original layout */}
+      <div className="hidden lg:flex gap-6 w-full h-full">
+        {/* 3D Viewer - Desktop */}
+        <div className="w-1/2">
+          <div
+            className="w-full h-3/4 border border-base-300 rounded-lg"
+            data-testid="canvas-container"
+          >
+            <Canvas
+              camera={{
+                position: cameraPosition,
+                fov: 50,
+              }}
+              shadows
+              data-testid="3d-canvas"
+            >
+              {/* Ambient lighting for general illumination */}
+              <ambientLight intensity={0.8} />
+
+              {/* Directional lighting for proper depth perception */}
+              <directionalLight
+                position={[10, 10, 5]}
+                intensity={1.3}
+                castShadow
+                shadow-mapSize-width={2048}
+                shadow-mapSize-height={2048}
+                shadow-camera-far={50}
+                shadow-camera-left={-10}
+                shadow-camera-right={10}
+                shadow-camera-top={10}
+                shadow-camera-bottom={-10}
+              />
+
+              {/* Interactive Camera Controls with dynamic target */}
+              <OrbitControls
+                target={cameraTarget}
+                minDistance={Math.max(2, maxDimension * 0.5)}
+                maxDistance={Math.max(20, maxDimension * 3)}
+                minPolarAngle={Math.PI / 6}
+                maxPolarAngle={Math.PI / 2}
+                enablePan={true}
+                enableZoom={true}
+                enableRotate={true}
+                enableDamping={true}
+                dampingFactor={0.05}
+                panSpeed={1}
+                rotateSpeed={1}
+                zoomSpeed={1}
+                mouseButtons={{
+                  LEFT: 0,
+                  MIDDLE: 1,
+                  RIGHT: 2,
+                }}
+              />
+
+              {/* Dynamic Pylon */}
+              <Pylon />
+
+              {/* Ground plane for depth perception */}
+              <mesh
+                rotation={[-Math.PI / 2, 0, 0]}
+                position={[0, -0.1, 0]}
+                receiveShadow
+              >
+                <planeGeometry args={[20, 20]} />
+                <meshStandardMaterial color="#f0f0f0" />
+              </mesh>
+            </Canvas>
+          </div>
+        </div>
+
+        {/* Configuration Panel - Desktop */}
+        <div className="w-1/2">
+          <ConfigurationPanel />
+        </div>
       </div>
     </div>
   );
