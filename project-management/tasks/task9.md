@@ -63,11 +63,14 @@ Implement mobile responsive design for the pylon configurator to ensure optimal 
 ## Implementation Notes
 
 - Leverage Tailwind CSS responsive utilities (sm:, md:, lg:) for breakpoint management
-- Maintain existing component structure while adding responsive classes
+- **Use flex direction classes instead of component duplication**: Apply responsive flex classes like `flex-col` (mobile) and `md:flex-row` (tablet+) to control layout orientation without duplicating components
+- **Single component structure**: Keep all existing components (DimensionControl, MaterialSelector, etc.) as single instances and use CSS classes to control their arrangement
+- **Responsive container approach**: Use responsive classes on container elements to control whether components stack vertically or arrange horizontally
 - Ensure OrbitControls from @react-three/drei support touch events properly
 - Test thoroughly on actual mobile devices, not just browser DevTools simulation
 - Preserve all existing German localization and formatting functionality
 - Maintain accessibility standards for keyboard and touch navigation
+- **No component duplication**: Avoid rendering components multiple times; instead use CSS flex orientation to achieve responsive layouts
 
 ## Definition of Done Checklist
 
