@@ -13,6 +13,9 @@ describe("PylonViewer with Configuration", () => {
     // Test that both the 3D canvas and controls render
     cy.get("canvas").should("exist");
     cy.get('[data-testid="configuration-panel-title"]').should("exist");
-    cy.get('[data-testid="configuration-panel-title"]').should("contain", "Pylon-Konfiguration");
+    cy.get('[data-testid="configuration-panel-title"]').should(
+      "contain",
+      "Pylon-Konfiguration"
+    );
   });
 });

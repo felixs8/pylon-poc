@@ -83,10 +83,9 @@ describe("ConfigurationPanel Component", () => {
     );
 
     // Check that all components show initial state consistently
-    cy.get('[data-testid="height-control-display"]').first().should(
-      "have.text",
-      "3,0m"
-    );
+    cy.get('[data-testid="height-control-display"]')
+      .first()
+      .should("have.text", "3,0m");
     cy.get('[data-testid="dimension-summary-text"]').should(
       "have.text",
       "3,0m × 1,0m × 0,5m"
@@ -118,7 +117,7 @@ describe("ConfigurationPanel Component", () => {
 
     // Check that color picker is present
     cy.get('[data-testid="color-picker"]').should("exist");
-    cy.get('[data-testid="color-button"]').first().should("exist");
+    cy.get('[data-testid="color-picker-button"]').first().should("exist");
 
     // Check that image upload is present
     cy.get('[data-testid="image-upload"]').should("exist");

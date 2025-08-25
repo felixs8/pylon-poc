@@ -6,12 +6,15 @@ export default function Home() {
   return (
     <PylonConfigurationProvider>
       <div
-        className="min-h-screen bg-base-200 flex flex-col"
+        className="h-screen bg-base-200 flex flex-col"
         data-testid="main-page"
       >
         {/* Header - responsive padding */}
         <div className="flex-shrink-0 p-4 sm:p-6 text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold mb-2" data-testid="page-title">
+          <h1
+            className="text-2xl sm:text-3xl font-bold mb-2"
+            data-testid="page-title"
+          >
             {germanTexts.pageTitle}
           </h1>
           <p

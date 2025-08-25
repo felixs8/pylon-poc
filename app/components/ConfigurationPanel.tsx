@@ -34,83 +34,10 @@ export default function ConfigurationPanel() {
         </div>
 
         {/* Row 2: Responsive Control Section */}
-        {/* Mobile: Single column (< 640px) */}
-        <div className="flex flex-col space-y-4 sm:hidden">
-          {/* Dimensions Section */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">
-              {germanTexts.dimensionControls.dimensionsHeader}
-            </h3>
-            
-            {/* Height Control */}
-            <DimensionControl
-              label={germanTexts.dimensionControls.height}
-              value={dimensions.height}
-              min={DIMENSION_LIMITS.height.min}
-              max={DIMENSION_LIMITS.height.max}
-              step={0.1}
-              unit="m"
-              onChange={setHeight}
-              getRangeErrorMessage={germanTexts.validation.heightRange}
-              testId="height-control"
-            />
-
-            {/* Width Control */}
-            <DimensionControl
-              label={germanTexts.dimensionControls.width}
-              value={dimensions.width}
-              min={DIMENSION_LIMITS.width.min}
-              max={DIMENSION_LIMITS.width.max}
-              step={0.1}
-              unit="m"
-              onChange={setWidth}
-              getRangeErrorMessage={germanTexts.validation.widthRange}
-              testId="width-control"
-            />
-
-            {/* Depth Control */}
-            <DimensionControl
-              label={germanTexts.dimensionControls.depth}
-              value={dimensions.depth}
-              min={DIMENSION_LIMITS.depth.min}
-              max={DIMENSION_LIMITS.depth.max}
-              step={0.1}
-              unit="m"
-              onChange={setDepth}
-              getRangeErrorMessage={germanTexts.validation.depthRange}
-              testId="depth-control"
-            />
-          </div>
-
-          {/* Material Section */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">
-              {germanTexts.materialControls.title}
-            </h3>
-            <MaterialSelector />
-          </div>
-
-          {/* Color Section */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">
-              {germanTexts.colorControls.title}
-            </h3>
-            <ColorPicker />
-          </div>
-
-          {/* Image Section */}
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">
-              {germanTexts.imageControls.title}
-            </h3>
-            <ImageUpload />
-          </div>
-        </div>
-
-        {/* Tablet & Desktop: Two-column layout (>= 640px) */}
-        <div className="hidden sm:flex flex-row gap-8 lg:gap-16">
+        {/* Mobile: flex-col (< 640px), Tablet+: flex-row (>= 640px) */}
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 lg:gap-16">
           {/* Left Column: Dimension Controls */}
-          <div className="flex flex-col space-y-4 lg:space-y-6 flex-1">
+          <div className="flex flex-col space-y-3 sm:space-y-4 lg:space-y-6 flex-1">
             <h3 className="text-sm lg:text-md font-semibold mb-2">
               {germanTexts.dimensionControls.dimensionsHeader}
             </h3>
@@ -156,7 +83,7 @@ export default function ConfigurationPanel() {
           </div>
 
           {/* Right Column: Material, Color, and Image Controls */}
-          <div className="flex flex-col space-y-4 lg:space-y-6 flex-1">
+          <div className="flex flex-col space-y-3 sm:space-y-4 lg:space-y-6 flex-1">
             {/* Material Selection Section */}
             <div>
               <h3 className="text-sm lg:text-md font-semibold mb-2">
