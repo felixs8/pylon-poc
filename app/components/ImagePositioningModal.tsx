@@ -27,6 +27,7 @@ export default function ImagePositioningModal({
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [canvasSize, setCanvasSize] = useState({ width: 400, height: 600 });
+  const [lastTouchDistance, setLastTouchDistance] = useState(0);
 
   // Calculate canvas dimensions based on pylon aspect ratio
   useEffect(() => {
@@ -130,6 +131,87 @@ export default function ImagePositioningModal({
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
+    updatePosition(x, y);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  // Helper function to calculate distance between two touches
+  const getTouchDistance = (touches: React.TouchList) => {
+    if (touches.length < 2) return 0;
+    const touch1 = touches[0];
+    const touch2 = touches[1];
+    return Math.sqrt(
+      Math.pow(touch2.clientX - touch1.clientX, 2) +
+      Math.pow(touch2.clientY - touch1.clientY, 2)
+    );
+  };
+
+  // Touch event handlers for mobile
+  const handleTouchStart = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    event.preventDefault(); // Prevent scrolling
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    if (event.touches.length === 1) {
+      // Single touch - start dragging
+      const touch = event.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      setIsDragging(true);
+      setDragStart({ x: x - position.x, y: y - position.y });
+    } else if (event.touches.length === 2) {
+      // Two touches - start pinch zoom
+      setIsDragging(false);
+      setLastTouchDistance(getTouchDistance(event.touches));
+    }
+  };
+
+  const handleTouchMove = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    event.preventDefault(); // Prevent scrolling
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    if (event.touches.length === 1 && isDragging) {
+      // Single touch - drag image
+      const touch = event.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+
+      updatePosition(x, y);
+    } else if (event.touches.length === 2) {
+      // Two touches - pinch zoom
+      const currentDistance = getTouchDistance(event.touches);
+      if (lastTouchDistance > 0) {
+        const scaleChange = (currentDistance - lastTouchDistance) / 200; // Adjust sensitivity
+        const newScale = Math.max(0.5, Math.min(3.0, scale + scaleChange));
+        setScale(newScale);
+      }
+      setLastTouchDistance(currentDistance);
+    }
+  };
+
+  const handleTouchEnd = (event: React.TouchEvent<HTMLCanvasElement>) => {
+    event.preventDefault();
+    if (event.touches.length === 0) {
+      setIsDragging(false);
+      setLastTouchDistance(0);
+    } else if (event.touches.length === 1) {
+      // If one finger lifted during pinch, stop pinching but don't start dragging immediately
+      setLastTouchDistance(0);
+    }
+  };
+
+  // Shared position update logic
+  const updatePosition = (x: number, y: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     // Calculate new position with constraints
     const newX = x - dragStart.x;
     const newY = y - dragStart.y;
@@ -154,10 +236,6 @@ export default function ImagePositioningModal({
     const constrainedY = Math.max(-maxOffsetY, Math.min(maxOffsetY, newY));
 
     setPosition({ x: constrainedX, y: constrainedY });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   // Wheel event for zooming
@@ -216,11 +294,14 @@ export default function ImagePositioningModal({
             ref={canvasRef}
             width={canvasSize.width}
             height={canvasSize.height}
-            className="border border-gray-300 cursor-move"
+            className="border border-gray-300 cursor-move touch-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
             onWheel={handleWheel}
             data-testid="positioning-canvas"
             style={{
@@ -231,8 +312,10 @@ export default function ImagePositioningModal({
         </div>
 
         <div className="text-sm text-gray-600 mb-4">
-          <p>Ziehen Sie das Bild zum Verschieben</p>
-          <p>Mausrad zum Vergrößern/Verkleinern</p>
+          <p className="hidden sm:block">Ziehen Sie das Bild zum Verschieben</p>
+          <p className="hidden sm:block">Mausrad zum Vergrößern/Verkleinern</p>
+          <p className="sm:hidden">Berühren und ziehen zum Verschieben</p>
+          <p className="sm:hidden">Zwei Finger zum Vergrößern/Verkleinern</p>
         </div>
 
         <div className="modal-action">
