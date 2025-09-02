@@ -64,6 +64,21 @@
 │  │  - Pylon Configuration                     │ │
 │  │  - Price Calculation Logic                 │ │
 │  │  - Local Image File State                  │ │
+│  │  - Iframe Integration State                │ │
+│  └─────────────────────────────────────────────┘ │
+│           │                                     │
+│  ┌─────────────────────────────────────────────┐ │
+│  │         PostMessage API                     │ │
+│  │  - Height Communication                    │ │
+│  │  - Parent-Child Coordination               │ │
+│  └─────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────┘
+                    │ PostMessage
+┌─────────────────────────────────────────────────┐
+│              WordPress Parent                   │
+│  ┌─────────────────────────────────────────────┐ │
+│  │                Iframe                       │ │
+│  │           (Auto-Height)                     │ │
 │  └─────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────┘
 ```
@@ -79,6 +94,7 @@
 - **ColorPicker**: RGB color selection interface
 - **PriceDisplay**: Real-time price calculation display
 - **LocalImageSelector**: File input for local image selection (no upload)
+- **IframeIntegration**: PostMessage communication handler for WordPress iframe embedding
 
 #### 3D Visualization Layer (Three.js + React Three Fiber)
 
@@ -237,6 +253,8 @@ _Note: Cypress cannot reliably test WebGL canvas rendering content - 3D visual v
 - **Component Architecture**: Modular design supports embedding in existing company websites
 - **State Management**: Centralized configuration state enables easy data persistence
 - **Plugin Architecture**: Extensible material and shape system for future additions
+- **Iframe Integration**: PostMessage API for WordPress iframe embedding with automatic height adjustment
+- **Multi-instance Support**: Architecture supports multiple iframe instances on the same page without conflicts
 
 ### Scalability Considerations
 

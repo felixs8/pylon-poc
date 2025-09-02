@@ -88,6 +88,15 @@ All users operate on desktop computers with modern browsers and require German-l
 - **FR8.6**: All text remains readable and controls remain usable on mobile screen sizes
 - **FR8.7**: German text content and formatting is preserved across all responsive breakpoints
 
+#### FR9: WordPress Iframe Integration
+
+- **FR9.1**: App can be embedded in WordPress pages using iframe without scrollbars
+- **FR9.2**: Iframe automatically adjusts its height to match content using postMessage communication
+- **FR9.3**: Height adjustment occurs within 500ms of content size changes
+- **FR9.4**: Iframe integration provides production-ready WordPress embed code
+- **FR9.5**: Multiple instances can be embedded on the same WordPress page without conflicts
+- **FR9.6**: App detects iframe context and optimizes layout accordingly
+
 ### Non-functional Requirements
 
 #### NFR1: Performance
@@ -122,6 +131,8 @@ All users operate on desktop computers with modern browsers and require German-l
 - **NFR5.1**: Standalone web application (no external dependencies for POC)
 - **NFR5.2**: Code architecture supports future integration into company website
 - **NFR5.3**: Component-based structure for maintainability
+- **NFR5.4**: Support for iframe embedding in WordPress pages with automatic height adjustment
+- **NFR5.5**: PostMessage communication for iframe-parent integration
 
 ### Out of Scope for POC
 
