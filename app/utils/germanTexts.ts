@@ -7,10 +7,6 @@ import { formatGermanNumber } from "./formatting";
 
 // Page content
 export const germanTexts = {
-  // Page titles and descriptions
-  pageTitle: "Pylon Konfigurator POC",
-  pageDescription: "3D Visualisierung von Werbepylonen",
-
   // Dimension controls
   dimensionControls: {
     title: "Pylon-Konfiguration",

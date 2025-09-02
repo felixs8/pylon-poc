@@ -5,10 +5,18 @@ import { OrbitControls } from "@react-three/drei";
 import Pylon from "./Pylon";
 import ConfigurationPanel from "./ConfigurationPanel";
 import { usePylonConfiguration } from "../hooks/usePylonConfiguration";
+import { useIframeIntegration } from "../hooks/useIframeIntegration";
+import { useEffect } from "react";
 
 export default function PylonViewer() {
   const { configuration } = usePylonConfiguration();
+  const { triggerHeightUpdate } = useIframeIntegration();
   const { height, width, depth } = configuration.dimensions;
+
+  // Trigger height update when configuration changes
+  useEffect(() => {
+    triggerHeightUpdate();
+  }, [configuration, triggerHeightUpdate]);
 
   // Calculate camera target based on pylon center
   const cameraTarget: [number, number, number] = [0, height / 2 - 0.1, 0];

@@ -4,15 +4,8 @@ describe("Dynamic Pylon Configuration E2E", () => {
   });
 
   it("should display pylon configurator with dimension controls", () => {
-    // Check page title and description using data-testids - German localized
-    cy.get('[data-testid="page-title"]').should(
-      "have.text",
-      "Pylon Konfigurator POC"
-    );
-    cy.get('[data-testid="page-description"]').should(
-      "have.text",
-      "3D Visualisierung von Werbepylonen"
-    );
+    // Check main page container exists
+    cy.get('[data-testid="main-page"]').should("exist").and("be.visible");
 
     // Check that 3D canvas exists
     cy.get("canvas").should("exist").should("be.visible");
@@ -102,7 +95,7 @@ describe("Dynamic Pylon Configuration E2E", () => {
     // Test keyboard input on numeric fields using data-testids
     cy.get('[data-testid="height-control-input"]').focus();
     cy.get('[data-testid="height-control-input"]').should("be.focused");
-    cy.get('[data-testid="height-control-input"]').type("{selectall}5");
+    cy.get('[data-testid="height-control-input"]').type("{selectall}5.0");
     cy.get('[data-testid="height-control-input"]').blur();
     cy.get('[data-testid="height-control-display"]').should(
       "have.text",

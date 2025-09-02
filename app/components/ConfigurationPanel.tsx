@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   usePylonConfiguration,
   DIMENSION_LIMITS,
@@ -11,11 +11,18 @@ import ColorPicker from "./ColorPicker";
 import ImageUpload from "./ImageUpload";
 import ConfigurationSummary from "./ConfigurationSummary";
 import { germanTexts } from "../utils/germanTexts";
+import { useIframeIntegration } from "../hooks/useIframeIntegration";
 
 export default function ConfigurationPanel() {
   const { configuration, setHeight, setWidth, setDepth } =
     usePylonConfiguration();
+  const { triggerHeightUpdate } = useIframeIntegration();
   const { dimensions } = configuration;
+
+  // Trigger height update when configuration panel might resize
+  useEffect(() => {
+    triggerHeightUpdate();
+  }, [configuration, triggerHeightUpdate]);
 
   return (
     <div

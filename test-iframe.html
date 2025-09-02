@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pylon Configurator - Iframe Integration Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .iframe-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            position: relative;
+        }
+        
+        .iframe-container.loading::before {
+            content: "Loading configurator...";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 4px;
+            z-index: 10;
+            font-size: 16px;
+            color: #666;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .pylon-iframe {
+            width: 100%;
+            height: 800px; /* Better initial height */
+            border: none;
+            display: block;
+            background: white;
+            transition: height 0.2s ease-out; /* Smoother transition */
+            min-height: 600px;
+        }
+        
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 5px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .height-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>3D Pylon Configurator - Iframe Integration Test</h1>
+        
+        <div class="iframe-container loading" id="iframe-container">
+            <iframe
+                id="pylon-iframe"
+                class="pylon-iframe"
+                src="http://localhost:3001"
+                title="3D Pylon Configurator"
+                allowfullscreen
+                loading="eager"
+            ></iframe>
+        </div>
+        
+        <div class="info">
+            <h3>Integration Test Instructions:</h3>
+            <ol>
+                <li>The iframe above should load the 3D pylon configurator</li>
+                <li>No scrollbars should appear in the iframe</li>
+                <li>The iframe height should automatically adjust when you change configurations</li>
+                <li>Try changing dimensions, materials, colors, and uploading images</li>
+                <li>Switch between mobile and desktop viewport sizes to test responsive behavior</li>
+                <li>Check the browser console for postMessage communication</li>
+            </ol>
+        </div>
+        
+        <div class="height-info" id="height-info">
+            Height messages will appear here...
+        </div>
+    </div>
+
+    <script>
+        // Enhanced message listener with loading state
+        let isLoaded = false;
+        
+        // Listen for height messages from the iframe
+        window.addEventListener('message', function(event) {
+            // Security check - in production, verify origin
+            // if (event.origin !== 'http://localhost:3001') return;
+            
+            const data = event.data;
+            
+            // Check if this is our height message
+            if (data && data.type === 'pylon-configurator-height') {
+                const iframe = document.getElementById('pylon-iframe');
+                const heightInfo = document.getElementById('height-info');
+                const container = document.getElementById('iframe-container');
+                
+                if (iframe && typeof data.height === 'number' && data.height > 0) {
+                    // Update iframe height with smooth transition
+                    iframe.style.height = data.height + 'px';
+                    
+                    // Remove loading state on first height message
+                    if (!isLoaded && container) {
+                        isLoaded = true;
+                        container.classList.remove('loading');
+                    }
+                    
+                    // Log the height change
+                    const timestamp = new Date().toLocaleTimeString();
+                    heightInfo.innerHTML = `
+                        <strong>Last height update:</strong> ${timestamp}<br>
+                        <strong>Height:</strong> ${data.height}px<br>
+                        <strong>Status:</strong> ${isLoaded ? 'Loaded' : 'Loading'}<br>
+                        <strong>Message:</strong> ${JSON.stringify(data)}
+                    `;
+                    
+                    console.log('Iframe height updated:', data);
+                }
+            }
+        });
+        
+        // Log all messages for debugging
+        window.addEventListener('message', function(event) {
+            console.log('Received message:', event.data, 'from origin:', event.origin);
+        });
+    </script>
+</body>
+</html>

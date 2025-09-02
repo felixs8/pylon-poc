@@ -4,15 +4,8 @@ describe("3D Pylon Visualization", () => {
   });
 
   it("displays 3D canvas and page content", () => {
-    // Check page content using data-testids
-    cy.get('[data-testid="page-title"]').should(
-      "have.text",
-      "Pylon Konfigurator POC"
-    );
-    cy.get('[data-testid="page-description"]').should(
-      "have.text",
-      "3D Visualisierung von Werbepylonen"
-    );
+    // Check main page container exists
+    cy.get('[data-testid="main-page"]').should("exist").and("be.visible");
 
     // Check 3D canvas is rendered and visible
     cy.get("canvas").should("exist").and("be.visible");
