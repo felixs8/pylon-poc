@@ -54,10 +54,22 @@
   - **xs-s (< 640px)**: Single column vertical layout with full-width components and touch-optimized spacing
   - **m (640px-1023px)**: Canvas above configuration panel, two-column controls within panel
   - **l+ (1024px+)**: Side-by-side desktop layout maintained unchanged
-- **Responsive Canvas Sizing**: Dynamic height classes (`h-64 sm:h-96 md:h-[32rem] lg:h-full`) with minimum height constraints
+- **Responsive Canvas Sizing**: Dynamic height classes (`h-80 sm:h-[28rem] md:h-[36rem] lg:h-[600px]`) with fixed desktop height for consistent visual prominence
 - **Touch Interaction Support**: 3D OrbitControls work with mobile touch gestures, basic touch events for image positioning
 - **German Text Preservation**: All German localization maintained across all responsive breakpoints
 - **Performance Optimization**: No performance regressions on mobile or desktop devices
+
+### WordPress Iframe Integration
+
+- **Iframe Context Detection**: Automatic detection of iframe embedding using `window.parent !== window` check
+- **PostMessage Height Communication**: Real-time height calculation and communication to parent window for seamless integration
+- **Structured Message Format**: `{ type: 'pylon-configurator-height', height: number, id?: string }` for reliable parent-child communication
+- **ResizeObserver Integration**: Automatic content size monitoring with 100ms debounced updates to prevent excessive messaging
+- **Comprehensive Height Calculation**: Includes all visible content (3D canvas, configuration panel, margins, padding) for accurate iframe sizing
+- **Responsive Height Updates**: Automatic height adjustments for mobile orientation changes and configuration panel modifications
+- **Error Handling**: Graceful fallback when postMessage fails or parent doesn't implement message handling
+- **Integration Documentation**: Complete README.md example with HTML/JavaScript for easy website embedding
+- **Manual Testing Support**: Included `test-iframe.html` file for integration testing and debugging
 
 ### German Localization & User Experience
 
@@ -101,6 +113,7 @@
 
 - `/app/contexts/PylonConfigurationContext.tsx` – React Context for global pylon configuration state including material selection
 - `/app/hooks/usePylonConfiguration.ts` – Custom hook for accessing configuration Context with MaterialType exports
+- `/app/hooks/useIframeIntegration.ts` – Custom hook for iframe context detection, height calculation, and postMessage communication
 
 ### E2E Tests
 
@@ -127,6 +140,7 @@
 - `/tsconfig.json` – TypeScript compiler configuration
 - `/postcss.config.mjs` – PostCSS configuration for Tailwind CSS
 - `/eslint.config.mjs` – ESLint configuration with Cypress-specific rules
+- `/test-iframe.html` – Manual testing HTML file for iframe integration with postMessage listener example
 
 ## Package.json Scripts
 

@@ -39,11 +39,11 @@ export default function PylonViewer() {
       {/* Mobile (< 640px): flex-col (vertical stack)
           Medium (640px-1023px): flex-col (canvas above, config below)
           Large (1024px+): flex-row (side-by-side) */}
-      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 w-full h-full min-h-[600px] lg:min-h-[500px]">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 w-full h-full min-h-[700px] lg:min-h-[650px]">
         {/* 3D Canvas - Single instance with responsive sizing */}
         <div
           className="w-full lg:w-1/2 
-                        h-64 sm:h-96 md:h-[32rem] lg:h-full lg:min-h-[500px]
+                          h-80 sm:h-[28rem] md:h-[36rem] lg:h-[600px]
                         flex-shrink-0"
         >
           <div
