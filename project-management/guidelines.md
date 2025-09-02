@@ -225,7 +225,7 @@ Example prompt (implementation, copy-paste):
 ```
 You are acting as a Programmer. I want you to implement the requirements written in taskX.md
 
-Read everything written in the the project files: guidelines.md, requirements.md, target_architecture.md, current_architecture.md and definition_of_done.md to understand the current project state.
+Read everything written in the the project files: requirements.md, target_architecture.md, current_architecture.md and definition_of_done.md to understand the current project state.
 
 Please:
 1. Implement the feature/changes from the task file
